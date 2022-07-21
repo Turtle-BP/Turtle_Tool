@@ -12,6 +12,7 @@ import pymysql
 from Global_Scripts.Menu_Brands import getting_brands
 from Pages.Upload_Data import Upload_data
 from Pages.Add_Brands import Add_Page
+from Pages.Inventory import Inventory_Page
 
 ####  FUNÇÕES DE ELEMENTOS TKINTER #######
 #Função para criar CeckButton
@@ -67,7 +68,7 @@ def Main_Page():
 # Criando a página
     Main = tk.Tk()
     Main.title("Turtle Brand Protection - V.1")
-    Main.geometry('1020x720')
+    Main.geometry('870x400')
 
     #Carreando a imagem
     load_img = Image.open('Img/Logo_pequeno.png').resize((30,40))
@@ -97,7 +98,7 @@ def Main_Page():
     Catalogo_button.grid(row=0, column=2, padx=10, pady=10, sticky="W")
 
     #Brand Protection
-    Inventory_button = ttk.Button(Menu_Top_Frame, text="Inventory")
+    Inventory_button = ttk.Button(Menu_Top_Frame, text="Inventory", command=Inventory_Page)
     Inventory_button.grid(row=0, column=3, padx=10, pady=10, sticky="W")
 
     #Brand Protection

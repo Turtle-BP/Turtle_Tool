@@ -7,6 +7,7 @@ import pymysql
 
 #Importando a página principal 
 from Pages.Main_Page import Main_Page
+from Pages.App_Details import details
 
 
 #Função de validão de usar 
@@ -46,7 +47,7 @@ def Login_Page():
     # Criando a página
     Login_root = tk.Tk()
     Login_root.title("Turtle Brand Protection")
-    Login_root.geometry('320x250')
+    Login_root.geometry('320x300')
 
     # Carregando a imagem
     load_img = Image.open('Img/horizontal_mono_preto.png').resize((250, 70))
@@ -78,9 +79,14 @@ def Login_Page():
     Button_Login = ttk.Button(Login_root, text='Login', width=20,command=lambda: User_verification(User_name.get(), Password.get(), Login_root))
     Button_Login.grid(row=4, column=0, pady=8, padx=8)
 
+    Details_Login = ttk.Button(Login_root, text='App', width=20,command=details)
+    Details_Login.grid(row=5, column=0, pady=8, padx=8)
+
     # Colocando de esqueceu a senha
     Button_Forget = ttk.Button(Login_root, text='Esqueceu a senha', width=20)
     Button_Forget.grid(row=4, column=1, pady=8, padx=8)
+
+
 
     Login_root.mainloop()
 

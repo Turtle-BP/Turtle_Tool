@@ -21,6 +21,13 @@ def Creating_Labels(root):
                              database='Products_Brands',
                              cursorclass=pymysql.cursors.DictCursor)
 
+    connection_historic = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+                user='admin',
+                password='turtle316712',
+                database='Historic_Brands',
+                cursorclass=pymysql.cursors.DictCursor)
+
+    c_historic = connection_historic.cursor()
     c = connection.cursor()
 
     c.execute("SELECT * FROM Products")
@@ -30,12 +37,19 @@ def Creating_Labels(root):
         sql = "SELECT * FROM Products WHERE Brand = %s"        
         List_Values.append(brand)
         List_Values.append(c.execute(sql, brand))
-        List_Values.append("ATIVO")
-        List_Values.append("xxxxxxxxx")
+        List_Values.append("ATIVO")           
 
-    result = c.fetchall()
+        sql_query = 'SELECT * FROM %s' % (brand)
+
+        result = c_historic.execute(sql_query)        
+
+        List_Values.append(result)
+
+    #result = c.fetchall()
     connection.close()
     c.close()
+    connection_historic.close()
+    c_historic.close()
 
     N = 0 
     b_number = 0
