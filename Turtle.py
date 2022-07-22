@@ -90,6 +90,4 @@ def Login_Page():
 
     Login_root.mainloop()
 
-#Login_Page()
-
-Main_Page()
+Login_Page()

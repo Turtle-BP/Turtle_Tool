@@ -33,7 +33,7 @@ def Inspec_data(brand_name):
     data_filtrada = data[data['Brand'] == brand_name]
 
     #Pegando apenas as colunas que irei utilizar para a construlão dos dados
-    data_filtrada = data_filtrada[['Store - Seller','Week','Date','Part','Store','Seller','Suggested Price','Cash Price','Difference','Porcentage','Installments','Parcel Price','Installment Price','Hiperlink','Item','Store Status','Store Group','From_To - Sellers','1P X 3P','Store Official?','Seller Official?','Cash Price Status','Installment Price Status','Action','Status Ad','Brand','Ad','Officiality',"Ad's Code",'Item Classification','CUSTOMER CLASSIFICATION','CHANNEL']]
+    data_filtrada = data_filtrada[['Store - Seller','Week','Date','Part','Store','Seller','Suggested Price','Cash Price','Difference','Porcentage','Installments','Parcel Price','Installment Price','Hiperlink','Item','Store Status','Store Group','From_To - Sellers','1P X 3P','Seller Official?','Cash Price Status','Installment Price Status','Action','Status Ad','Brand','Ad',"Ad's Code",'Item Classification','Cross Border']]
 
     #Mudando as colunas de Action para corrigir sozinha
     data_filtrada['Action'] = data_filtrada['Action'].str.replace(r'(^.*In Progress.*$)', 'Mercado Livre - Take Down')
@@ -110,7 +110,7 @@ def Upload_to_aws(data, brand):
                                row['Installments'],row['Parcel Price'],row['Installment Price'],row['Hiperlink'],row['Item'],
                                row['Store Status'],row['Store Group'],row['From_To - Sellers'],row['1P X 3P'],row['Seller Official?'],
                                row['Cash Price Status'],row['Installment Price Status'],row['Action'],row['Status Ad'],row['Brand'],row["Ad's Code"],
-                               row['Item Classification'],"NACIONAL"))
+                               row['Item Classification'],row['Cross Border']))
 
     connection.commit()
     connection.close()
