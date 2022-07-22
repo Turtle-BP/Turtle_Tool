@@ -29,6 +29,138 @@ def Create_Status(Frame_name, Text_value, Color):
     return Text_Status
 
 
+#################### FUNÇÕES DE SPIDERS ##########################
+def Start_Amazon(Marketplace_var, brand):
+    #Importando a função
+    from Spiders.Amazon import Amazon_Final
+
+    if Marketplace_var.get() == "Ligado":
+
+        Amazon_Status.config(foreground="orange", text="Buscando")
+
+        Amazon_Status.update_idletasks()
+
+        Amazon_Final(brand,'padronized')
+
+        Amazon_Status.config(foreground="green", text="Finalizado")
+
+        Amazon_Status.update_idletasks()
+    else:
+        Amazon_Status.config(foreground="red", text="Desativado")
+
+def Start_Americanas(Marketplace_var, brand):
+    #Importando a função
+    from Spiders.Americanas import americanas_final
+
+    if Marketplace_var.get() == "Ligado":
+
+        Americanas_Status.config(foreground="orange", text="Buscando")
+
+        Americanas_Status.update_idletasks()
+
+        americanas_final(brand,'padronized')
+
+        Americanas_Status.config(foreground="green", text="Finalizado")
+
+        Americanas_Status.update_idletasks()
+    else:
+        Americanas_Status.config(foreground="red", text="Desativado")
+
+def Start_Carrefour(Marketplace_var, brand):
+    #Importando a função
+    from Spiders.Carrefour import carrefour_final
+
+    if Marketplace_var.get() == "Ligado":
+
+        Carrefour_Status.config(foreground="orange", text="Buscando")
+
+        Carrefour_Status.update_idletasks()
+
+        carrefour_final(brand,'padronized')
+
+        Carrefour_Status.config(foreground="green", text="Finalizado")
+
+        Carrefour_Status.update_idletasks()
+    else:
+        Carrefour_Status.config(foreground="red", text="Desativado")
+
+def Start_Extra(Marketplace_var, brand):
+    #Importando a função
+    from Spiders.Extra import ViaVarejo_final
+
+    if Marketplace_var.get() == "Ligado":
+
+        Extra_Status.config(foreground="orange", text="Buscando")
+
+        Extra_Status.update_idletasks()
+
+        ViaVarejo_final(brand,'padronized')
+
+        Extra_Status.config(foreground="green", text="Finalizado")
+
+        Extra_Status.update_idletasks()
+    else:
+        Extra_Status.config(foreground="red", text="Desativado")
+
+def Start_MercadoL(Marketplace_var, brand):
+    #Importando a função
+    from Spiders.Mercado_Livre import Mercado_Livre_Final
+
+    if Marketplace_var.get() == "Ligado":
+
+        MercadoL_Status.config(foreground="orange", text="Buscando")
+
+        MercadoL_Status.update_idletasks()
+
+        Mercado_Livre_Final(brand,'padronized')
+
+        MercadoL_Status.config(foreground="green", text="Finalizado")
+
+        MercadoL_Status.update_idletasks()
+    else:
+        MercadoL_Status.config(foreground="red", text="Desativado")
+
+def Start_Kabum(Marketplace_var, brand):
+    #Importando a função
+    from Spiders.Kabum import Kabum_final
+
+    if Marketplace_var.get() == "Ligado":
+
+        Kabum_Status.config(foreground="orange", text="Buscando")
+
+        Kabum_Status.update_idletasks()
+
+        Kabum_final(brand,'padronized')
+
+        Kabum_Status.config(foreground="green", text="Finalizado")
+
+        Kabum_Status.update_idletasks()
+    else:
+        Kabum_Status.config(foreground="red", text="Desativado")
+
+def Start_Magazine(Marketplace_var, brand):
+    #Importando a função
+    from Bots.Magalu import magalu_final
+
+    if Marketplace_var.get() == "Ligado":
+
+        Magazine_Status.config(foreground="orange", text="Buscando")
+
+        Magazine_Status.update_idletasks()
+
+        magalu_final(brand)
+
+        Magazine_Status.config(foreground="green", text="Finalizado")
+
+        Magazine_Status.update_idletasks()
+    else:
+        Magazine_Status.config(foreground="red", text="Desativado")
+
+
+def Start_Spiders(Magazine, brand_final):
+    Start_Magazine(Magazine,brand_final)
+
+
 ### FUNÇÕES DE DATA #############
 def Logs_records(table):
     global list
@@ -65,6 +197,10 @@ def Logs_records(table):
 
 
 def Main_Page():
+
+    #DEFININCO OS GLOBAIS NECESSÁRIOS PARA OS SPIDERS
+    global Magazine_Status
+
 # Criando a página
     Main = tk.Tk()
     Main.title("Turtle Brand Protection - V.1")
@@ -188,7 +324,7 @@ def Main_Page():
     Menu_Brand_Element.grid(row=6, column=1, padx=10, pady=10, sticky="W")
 
     #Botão para procurar Manual
-    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual")#, command=lambda: Start_Spiders(AmazonVar,AmericanasVar,CarrefourVar,ExtraVar,MercadoLVar,KabumVar,MagazineVar,Brands_Choice.get()))
+    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual", command=lambda: Start_Spiders(MagazineVar,Brands_Choice.get()))
     Manual_Search_Button.grid(row=6, column=2,columnspan=2)
 
     #Botão para fazer revisão

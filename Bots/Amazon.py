@@ -50,10 +50,10 @@ def Amazon_Final(brand):
         c = connection.cursor()
 
         #Criando a Query
-        Sql_query = "SELECT * FROM Products WHERE Brand = %s"
+        Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
 
         #Conectando com o banco de dados
-        c.execute(Sql_query, brand)
+        c.execute(Sql_query)
         result = c.fetchall()
 
         #Passando todos o dataframe para Lowercase
