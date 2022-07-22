@@ -32,7 +32,7 @@ def Create_Status(Frame_name, Text_value, Color):
 #################### FUNÇÕES DE SPIDERS ##########################
 def Start_Amazon(Marketplace_var, brand):
     #Importando a função
-    from Spiders.Amazon import Amazon_Final
+    from Bots.Amazon import Amazon_Final
 
     if Marketplace_var.get() == "Ligado":
 
@@ -40,7 +40,7 @@ def Start_Amazon(Marketplace_var, brand):
 
         Amazon_Status.update_idletasks()
 
-        Amazon_Final(brand,'padronized')
+        Amazon_Final(brand)
 
         Amazon_Status.config(foreground="green", text="Finalizado")
 
@@ -157,7 +157,8 @@ def Start_Magazine(Marketplace_var, brand):
         Magazine_Status.config(foreground="red", text="Desativado")
 
 
-def Start_Spiders(Magazine, brand_final):
+def Start_Spiders(Amazon,Magazine, brand_final):
+    Start_Amazon(Amazon, brand_final)
     Start_Magazine(Magazine,brand_final)
 
 
@@ -199,7 +200,7 @@ def Logs_records(table):
 def Main_Page():
 
     #DEFININCO OS GLOBAIS NECESSÁRIOS PARA OS SPIDERS
-    global Magazine_Status
+    global Amazon_Status,Magazine_Status
 
 # Criando a página
     Main = tk.Tk()
@@ -324,7 +325,7 @@ def Main_Page():
     Menu_Brand_Element.grid(row=6, column=1, padx=10, pady=10, sticky="W")
 
     #Botão para procurar Manual
-    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual", command=lambda: Start_Spiders(MagazineVar,Brands_Choice.get()))
+    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual", command=lambda: Start_Spiders(AmazonVar,MagazineVar,Brands_Choice.get()))
     Manual_Search_Button.grid(row=6, column=2,columnspan=2)
 
     #Botão para fazer revisão
