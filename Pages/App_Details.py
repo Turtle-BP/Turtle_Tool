@@ -18,7 +18,7 @@ def details():
 
     # Criando as variáveis
     Nome_app = 'Nome: Turtle Tool - Artemis' 
-    Versão_app = "Versão atual: 1.0.0"
+    Versão_app = "Versão atual: 1.1.0"
     ultima = 'última atualização: 21/07/2022'
 
     #Criando Labelframe 
