@@ -107,17 +107,25 @@ def Amazon_Final(brand):
     #Criando a função para limpar as urls
     def Cleaning_Urls(urls):
 
-        Database_Path = Current_Dir + "\Data\\" + brand + "\\" + brand + ".db"
+        connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+                             user='admin',
+                             password='turtle316712',
+                             database='Products_Brands',
+                             cursorclass=pymysql.cursors.DictCursor)
 
-        # Criando a Query
-        query = "SELECT * FROM Exclusao"
+        #Criando o caminho do Databae
+        c = connection.cursor()
 
-        connection = sqlite3.connect(Database_Path)
+        #Criando a Query
+        Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
 
-        # Criando o dataset em brando
-        df_itens = pd.read_sql_query(query, connection)
+        #Conectando com o banco de dados
+        c.execute(Sql_query)
+        result = c.fetchall()
 
-        clean_urls = pd.DataFrame()
+        #Passando todos o dataframe para Lowercase
+        df_itens = pd.DataFrame()
+        df_itens['Words'] = [item['Brand'] for item in result]
 
         clean_urls['Urls_Completas'] = urls
         clean_urls['Urls_limpas'] = clean_urls['Urls_Completas'].str.partition("ref")[0]
