@@ -3,4 +3,4 @@ cd ./venv/Scripts
 call activate
 cd ..
 cd ..
-start python Turtle.py
+python Turtle.py

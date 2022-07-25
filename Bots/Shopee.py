@@ -100,13 +100,16 @@ def Shopee_final(brand):
 
     #Função para arrumar as urls 
     def clean_links(lista):
-        global Urls_limpas, Urls_certas
+        global Urls_limpas
+        global Urls_certas
 
         Urls_limpas = [s for s in lista if '-i.' in s]
 
         Urls_certas = []
         for url in Urls_limpas:
             Urls_certas.append("https://www.shopee.com.br" + url)
+
+        Urls_certas = list(dict.fromkeys(Urls_certas))
 
     #Função para pegar atributos 
     def get_attributes(url):
@@ -172,17 +175,15 @@ def Shopee_final(brand):
         return Dataset
 
     Log("SPIDER","SHOPEE",brand,"INICIOU")
-
-    Urls_certas = list(dict.fromkeys(Urls_certas))
    
     df_products = getting_n_creating_urls(brand)
 
-    for url in df_products['Urls_search']:
+    for url in tqdm(df_products['Urls_search']):
         getting_links(url)
 
     clean_links(Urls_Shopee)
 
-    for url in Urls_certas:
+    for url in tqdm(Urls_certas):
         get_attributes(url)
 
     Df_final = creation_dataframe(Urls_certas, Seller_Shopee, Price_Shopee, Title_Shopee, Location_Shopee)
