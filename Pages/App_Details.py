@@ -6,9 +6,21 @@ from PIL import ImageTk, Image
 import git
 
 def git_pull():
-    current = os.getcwd()
-    g = git.cmd.Git(current)
-    g.pull()
+    try:
+        current = os.getcwd()
+        g = git.cmd.Git(current)
+        g.pull()
+
+        confirm_page = tk.Tk()
+        confirm_page.title("!!!!")
+        confirm_page.geometry("100x100")
+
+        confirm_text = tk.Label(confirm_page, text="O aplicativo foi atualizado")
+        confirm_text.grid(row=1, column=1, padx=10, pady=10, sticky="N")
+
+        confirm_page.mainloop()
+    except:
+        pass
 
 def details():
     # Criando a página
@@ -18,8 +30,8 @@ def details():
 
     # Criando as variáveis
     Nome_app = 'Nome: Turtle Tool - Artemis' 
-    Versão_app = "Versão atual: 1.1.0"
-    ultima = 'última atualização: 21/07/2022'
+    Versão_app = "Versão atual: 1.1.1"
+    ultima = 'última atualização: 25/07/2022'
 
     #Criando Labelframe 
     Detaisl_Frame = ttk.LabelFrame(details_page, text="Detalhes App")

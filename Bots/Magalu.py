@@ -21,35 +21,10 @@ Installment_Magalu_quantidade = []
 Installment_Magalu_valor_parcela = []
 Installment_Magalu_valor_total = []
 
+from Global_Scripts.Log_Registration import Log
+
 #Headers da Magazine
 headers_magalu = {"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 OPR/86.0.4363.59"}
-
-def Log(script,marketplace,brand,status):
-    # Criando a conexão com o banco de sql
-    connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
-                                 user='admin',
-                                 password='turtle316712',
-                                 database='turtle',
-                                 cursorclass=pymysql.cursors.DictCursor)
-
-    #Criando o cursor 
-    cursor = connection.cursor()
-
-    data_n_hour = datetime.datetime.now()
-    data = "%s/%s/%s" % (data_n_hour.day, data_n_hour.month, data_n_hour.year)
-    hour = "%s:%s" % (data_n_hour.hour, data_n_hour.minute)
-
-    #SQL 
-    sql_code = 'INSERT INTO Logs_Scripts (DATA, HORA, SCRIPT, MARKETPLACE, BRAND, STATUS) VALUES (%s,%s,%s,%s,%s,%s)'
-
-    #Executando o código em SQL 
-    cursor.execute(sql_code, (data, hour,script,marketplace,brand,status))
-
-    #Fechando o database 
-    connection.commit()
-    cursor.close()
-    connection.close()
-
 
 #Função para criar os links de busca
 def getting_n_creating_magazine_urls(brand):

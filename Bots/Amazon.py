@@ -34,6 +34,8 @@ More_Price_Amazon = []
 More_title_Amazon = []
 More_ID_Amazon = []
 
+from Global_Scripts.Log_Registration import Log
+
 #Criando a função final
 def Amazon_Final(brand):
 
@@ -534,6 +536,7 @@ def Amazon_Final(brand):
 
         return Dataframe_More
 
+    Log('SPIDER','AMAZON',brand,'INICIOU')
 
     #Configurando o WebDriver
     options = Options()
@@ -611,6 +614,8 @@ def Amazon_Final(brand):
 
     Df_final = pd.concat([Df_final_with_button,Dataframe_More])
 
-    Download_path = Current_Dir + "\Data\\" + brand + "\\Files\\Amazon_" + brand + ".xlsx"
+    Download_path = Current_Dir + "\Data\\Brands_Downloads\\" + brand + "\Amazon_" + brand + ".xlsx"
 
     Df_final.to_excel(Download_path, index=False)
+
+    Log('SPIDER','AMAZON',brand,'FINALIZOU')
