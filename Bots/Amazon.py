@@ -129,6 +129,8 @@ def Amazon_Final(brand):
         df_itens = pd.DataFrame()
         df_itens['Words'] = [item['Brand'] for item in result]
 
+        clean_urls = pd.DataFrame()
+
         clean_urls['Urls_Completas'] = urls
         clean_urls['Urls_limpas'] = clean_urls['Urls_Completas'].str.partition("ref")[0]
 
