@@ -130,7 +130,7 @@ def Start_Kabum(Marketplace_var, brand):
 
         Kabum_Status.update_idletasks()
 
-        Kabum_final(brand,'padronized')
+        Kabum_final(brand)
 
         Kabum_Status.config(foreground="green", text="Finalizado")
 
