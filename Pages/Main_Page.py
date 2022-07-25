@@ -48,81 +48,81 @@ def Start_Amazon(Marketplace_var, brand):
     else:
         Amazon_Status.config(foreground="red", text="Desativado")
 
-def Start_Americanas(Marketplace_var, brand):
+#def Start_Americanas(Marketplace_var, brand):
     #Importando a função
-    from Spiders.Americanas import americanas_final
+    #from Spiders.Americanas import americanas_final
 
-    if Marketplace_var.get() == "Ligado":
+    #if Marketplace_var.get() == "Ligado":
 
-        Americanas_Status.config(foreground="orange", text="Buscando")
+        #Americanas_Status.config(foreground="orange", text="Buscando")
 
-        Americanas_Status.update_idletasks()
+        #Americanas_Status.update_idletasks()
 
-        americanas_final(brand,'padronized')
+        #americanas_final(brand,'padronized')
 
-        Americanas_Status.config(foreground="green", text="Finalizado")
+        #Americanas_Status.config(foreground="green", text="Finalizado")
 
-        Americanas_Status.update_idletasks()
-    else:
-        Americanas_Status.config(foreground="red", text="Desativado")
+        #Americanas_Status.update_idletasks()
+    #else:
+        #Americanas_Status.config(foreground="red", text="Desativado")
 
-def Start_Carrefour(Marketplace_var, brand):
+#def Start_Carrefour(Marketplace_var, brand):
     #Importando a função
-    from Spiders.Carrefour import carrefour_final
+    #from Spiders.Carrefour import carrefour_final
 
-    if Marketplace_var.get() == "Ligado":
+    #if Marketplace_var.get() == "Ligado":
 
-        Carrefour_Status.config(foreground="orange", text="Buscando")
+        #Carrefour_Status.config(foreground="orange", text="Buscando")
 
-        Carrefour_Status.update_idletasks()
+        #Carrefour_Status.update_idletasks()
 
-        carrefour_final(brand,'padronized')
+        #carrefour_final(brand,'padronized')
 
-        Carrefour_Status.config(foreground="green", text="Finalizado")
+        #Carrefour_Status.config(foreground="green", text="Finalizado")
 
-        Carrefour_Status.update_idletasks()
-    else:
-        Carrefour_Status.config(foreground="red", text="Desativado")
+        #Carrefour_Status.update_idletasks()
+    #else:
+        #Carrefour_Status.config(foreground="red", text="Desativado")
 
-def Start_Extra(Marketplace_var, brand):
+#def Start_Extra(Marketplace_var, brand):
     #Importando a função
-    from Spiders.Extra import ViaVarejo_final
+    #from Spiders.Extra import ViaVarejo_final
 
-    if Marketplace_var.get() == "Ligado":
+    #if Marketplace_var.get() == "Ligado":
 
-        Extra_Status.config(foreground="orange", text="Buscando")
+        #Extra_Status.config(foreground="orange", text="Buscando")
 
-        Extra_Status.update_idletasks()
+        #Extra_Status.update_idletasks()
 
-        ViaVarejo_final(brand,'padronized')
+        #ViaVarejo_final(brand,'padronized')
 
-        Extra_Status.config(foreground="green", text="Finalizado")
+        #Extra_Status.config(foreground="green", text="Finalizado")
 
-        Extra_Status.update_idletasks()
-    else:
-        Extra_Status.config(foreground="red", text="Desativado")
+        #Extra_Status.update_idletasks()
+    #else:
+        #Extra_Status.config(foreground="red", text="Desativado")
 
-def Start_MercadoL(Marketplace_var, brand):
+#def Start_MercadoL(Marketplace_var, brand):
     #Importando a função
-    from Spiders.Mercado_Livre import Mercado_Livre_Final
+    #from Spiders.Mercado_Livre import Mercado_Livre_Final
 
-    if Marketplace_var.get() == "Ligado":
+    #if Marketplace_var.get() == "Ligado":
 
-        MercadoL_Status.config(foreground="orange", text="Buscando")
+        #MercadoL_Status.config(foreground="orange", text="Buscando")
 
-        MercadoL_Status.update_idletasks()
+        #MercadoL_Status.update_idletasks()
 
-        Mercado_Livre_Final(brand,'padronized')
+        #Mercado_Livre_Final(brand,'padronized')
 
-        MercadoL_Status.config(foreground="green", text="Finalizado")
+        #MercadoL_Status.config(foreground="green", text="Finalizado")
 
-        MercadoL_Status.update_idletasks()
-    else:
-        MercadoL_Status.config(foreground="red", text="Desativado")
+       # MercadoL_Status.update_idletasks()
+   # else:
+    #    MercadoL_Status.config(foreground="red", text="Desativado")
 
 def Start_Kabum(Marketplace_var, brand):
     #Importando a função
-    from Spiders.Kabum import Kabum_final
+    from Bots.Kabum import Kabum_final
 
     if Marketplace_var.get() == "Ligado":
 
@@ -156,10 +156,29 @@ def Start_Magazine(Marketplace_var, brand):
     else:
         Magazine_Status.config(foreground="red", text="Desativado")
 
+def Start_Shopee(Marketplace_var, brand):
+        #Importando a função
+    from Bots.Shopee import Shopee_final
 
-def Start_Spiders(Amazon,Magazine, brand_final):
+    if Marketplace_var.get() == "Ligado":
+
+        Shopee_Status.config(foreground="orange", text="Buscando")
+
+        Shopee_Status.update_idletasks()
+
+        Shopee_final(brand)
+
+        Shopee_Status.config(foreground="green", text="Finalizado")
+
+        Shopee_Status.update_idletasks()
+    else:
+        Shopee_Status.config(foreground="red", text="Desativado")
+
+def Start_Spiders(Amazon,Kabum,Magazine,shopee, brand_final):
     Start_Amazon(Amazon, brand_final)
     Start_Magazine(Magazine,brand_final)
+    Start_Kabum(Kabum,brand_final)
+    Start_Shopee(shopee,brand_final)
 
 
 ### FUNÇÕES DE DATA #############
@@ -200,7 +219,7 @@ def Logs_records(table):
 def Main_Page():
 
     #DEFININCO OS GLOBAIS NECESSÁRIOS PARA OS SPIDERS
-    global Amazon_Status,Magazine_Status
+    global Amazon_Status,Kabum_Status,Magazine_Status,Shopee_Status
 
 # Criando a página
     Main = tk.Tk()
@@ -325,7 +344,7 @@ def Main_Page():
     Menu_Brand_Element.grid(row=6, column=1, padx=10, pady=10, sticky="W")
 
     #Botão para procurar Manual
-    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual", command=lambda: Start_Spiders(AmazonVar,MagazineVar,Brands_Choice.get()))
+    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual", command=lambda: Start_Spiders(AmazonVar,KabumVar,MagazineVar,ShopeeVar,Brands_Choice.get()))
     Manual_Search_Button.grid(row=6, column=2,columnspan=2)
 
     #Botão para fazer revisão
