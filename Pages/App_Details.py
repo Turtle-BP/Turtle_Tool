@@ -13,7 +13,7 @@ def git_pull():
 
         confirm_page = tk.Tk()
         confirm_page.title("!!!!")
-        confirm_page.geometry("100x100")
+        confirm_page.geometry("200x80")
 
         confirm_text = tk.Label(confirm_page, text="O aplicativo foi atualizado")
         confirm_text.grid(row=1, column=1, padx=10, pady=10, sticky="N")
