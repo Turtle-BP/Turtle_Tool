@@ -22,16 +22,26 @@ def git_pull():
     except:
         pass
 
+def updates_registration(root,lista):
+    n_row = 0
+    for item in lista:
+        item_text = ttk.Label(root, text=item)
+        item_text.grid(row=n_row, column=1, padx=2, pady=2, sticky="WN")
+        n_row = n_row + 1
+
+###3 updatres
+updates_list = ["Página de Brand Test",'Melhora Spiders - Kabum, Shopee',"Puxar Manual - Estoque","Versão teste - Amazon/Shopee/Kabum","Melhora registros logs"]
+
 def details():
     # Criando a página
     details_page = tk.Tk()
     details_page.title("Turtle Brand Protection")
-    details_page.geometry('350x180')
+    details_page.geometry('450x200')
 
     # Criando as variáveis
     Nome_app = 'Nome: Turtle Tool - Artemis' 
-    Versão_app = "Versão atual: 1.1.2"
-    ultima = 'última atualização: 25/07/2022'
+    Versão_app = "Versão atual: 1.2.0"
+    ultima = 'última atualização: 26/07/2022'
 
     #Criando Labelframe 
     Detaisl_Frame = ttk.LabelFrame(details_page, text="Detalhes App")
@@ -47,9 +57,15 @@ def details():
     ultima_text = ttk.Label(Detaisl_Frame, text=ultima)
     ultima_text.grid(row=3, column=1, padx=10, pady=10, sticky="W")
 
+    #Colocando as coisas novas 
+    Features_n_updates_labelframe = ttk.LabelFrame(details_page, text='Updates')
+    Features_n_updates_labelframe.grid(row=1,column=2, padx=10, pady=10, sticky='N')
+
+    updates_registration(Features_n_updates_labelframe,updates_list)
+
     #Criando o botão 
     Atualize_Button = ttk.Button(details_page, text="Verificar atualização", command=git_pull)
-    Atualize_Button.grid(row=1, column=2, padx=10, pady=10)
+    Atualize_Button.grid(row=2, column=1, padx=10, pady=10, sticky='N')
 
     details_page.mainloop()
 

@@ -13,6 +13,7 @@ from Global_Scripts.Menu_Brands import getting_brands
 from Pages.Upload_Data import Upload_data
 from Pages.Add_Brands import Add_Page
 from Pages.Inventory import Inventory_Page
+from Pages.Test_Search_Page import Search_Page
 
 ####  FUNÇÕES DE ELEMENTOS TKINTER #######
 #Função para criar CeckButton
@@ -211,7 +212,7 @@ def Logs_records(table):
         log_text.append(list(dictionary.values()))
 
     n = 0
-    for list in log_text:
+    for list in log_text[-8:]:
         table.insert(parent='',index='end', iid=n, values=list)
         n = n + 1
 
@@ -270,7 +271,7 @@ def Main_Page():
     Motorola_Email_button.grid(row=0, column=6, padx=10, pady=10, sticky="W")
 
     #Brand Protection
-    Test_Brand_button = ttk.Button(Menu_Top_Frame, text="Brand Test")#, command=Test_Brand)
+    Test_Brand_button = ttk.Button(Menu_Top_Frame, text="Brand Test", command=Search_Page)
     Test_Brand_button.grid(row=0, column=7, padx=10, pady=10, sticky="W")
     ## ------------------------------------#
 

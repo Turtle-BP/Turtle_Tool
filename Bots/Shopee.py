@@ -24,7 +24,7 @@ Seller_Shopee = []
 Title_Shopee = []
 Location_Shopee = []
 
-def Shopee_final(brand):
+def Shopee_final(brand, teste_var=None):
 
     #Configurando webdriver
     options = Options()
@@ -44,28 +44,34 @@ def Shopee_final(brand):
     driver = webdriver.Chrome(Selenium_path,options=options)
 
     #Função para pegar os links 
-    def getting_n_creating_urls(brand):
+    def getting_n_creating_urls(brand, teste_var=None):
         
-        connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
-                             user='admin',
-                             password='turtle316712',
-                             database='Products_Brands',
-                             cursorclass=pymysql.cursors.DictCursor)
+        if teste_var==None:
+            connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+                                user='admin',
+                                password='turtle316712',
+                                database='Products_Brands',
+                                cursorclass=pymysql.cursors.DictCursor)
 
-        #Criando o caminho do Databae
-        c = connection.cursor()
+            #Criando o caminho do Databae
+            c = connection.cursor()
 
-        #Criando a Query
-        Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
+            #Criando a Query
+            Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
 
-        #Conectando com o banco de dados
-        c.execute(Sql_query)
-        result = c.fetchall()
+            #Conectando com o banco de dados
+            c.execute(Sql_query)
+            result = c.fetchall()
 
-        #Passando todos o dataframe para Lowercase
-        Dataset_Products = pd.DataFrame()
-        Dataset_Products['MARCA'] = [item['Brand'] for item in result]
-        Dataset_Products['ITEM'] = [item['Name'] for item in result]
+            #Passando todos o dataframe para Lowercase
+            Dataset_Products = pd.DataFrame()
+            Dataset_Products['MARCA'] = [item['Brand'] for item in result]
+            Dataset_Products['ITEM'] = [item['Name'] for item in result]
+        else:
+
+            Dataset_Products = pd.DataFrame()
+            Dataset_Products['MARCA'] = brand
+            Dataset_Products['ITEM'] = teste_var
 
 
         #Arrumando espaços vazios
@@ -76,7 +82,7 @@ def Shopee_final(brand):
         Dataset_Products['Urls'] = Dataset_Products['MARCA'] + "%20" + Dataset_Products['ITEM']
 
         # Criando a nova coluna que são as urls de pesquisa
-        Dataset_Products['Urls_search'] = "https://www.shopee.com.br/search?facet=11061449&filters=8&keyword=" + Dataset_Products['Urls']
+        Dataset_Products['Urls_search'] = "https://www.shopee.com.br/search?filters=8&keyword=" + Dataset_Products['Urls']
         return Dataset_Products
 
     #Função para pegar os links das páginas 
@@ -174,25 +180,46 @@ def Shopee_final(brand):
 
         return Dataset
 
-    Log("SPIDER","SHOPEE",brand,"INICIOU")
-   
-    df_products = getting_n_creating_urls(brand)
+    if teste_var==None:
+        Log("SPIDER","SHOPEE",brand,"INICIOU")
+    
+        df_products = getting_n_creating_urls(brand)
 
-    for url in tqdm(df_products['Urls_search']):
-        getting_links(url)
+        for url in tqdm(df_products['Urls_search']):
+            getting_links(url)
 
-    clean_links(Urls_Shopee)
+        clean_links(Urls_Shopee)
 
-    for url in tqdm(Urls_certas):
-        get_attributes(url)
+        for url in tqdm(Urls_certas):
+            get_attributes(url)
 
-    Df_final = creation_dataframe(Urls_certas, Seller_Shopee, Price_Shopee, Title_Shopee, Location_Shopee)
+        Df_final = creation_dataframe(Urls_certas, Seller_Shopee, Price_Shopee, Title_Shopee, Location_Shopee)
 
-    Download_path = Current_Dir + "\Data\\Brands_Downloads\\" + brand + "\Shopee_" + brand + ".xlsx"
+        Download_path = Current_Dir + "\Data\\Brands_Downloads\\" + brand + "\Shopee_" + brand + ".xlsx"
 
-    Df_final.to_excel(Download_path, index=False)
+        Df_final.to_excel(Download_path, index=False)
 
-    Log("SPIDER","SHOPEE",brand,"FINALIZADO")
+        Log("SPIDER","SHOPEE",brand,"FINALIZADO")
+    else:
+        Log("SP.TEST","SHOPEE",brand,"INICIOU")
+    
+        df_products = getting_n_creating_urls(brand,teste_var)
+
+        for url in tqdm(df_products['Urls_search']):
+            getting_links(url)
+
+        clean_links(Urls_Shopee)
+
+        for url in tqdm(Urls_certas):
+            get_attributes(url)
+
+        Df_final = creation_dataframe(Urls_certas, Seller_Shopee, Price_Shopee, Title_Shopee, Location_Shopee)
+
+        Download_path = Current_Dir + "\Data\\Brand_Search_Test\\\Shopee_" + brand + ".xlsx"
+
+        Df_final.to_excel(Download_path, index=False)
+
+        Log("SP.TEST","SHOPEE",brand,"FINALIZADO")
 
 
 

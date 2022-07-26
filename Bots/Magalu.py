@@ -27,29 +27,34 @@ from Global_Scripts.Log_Registration import Log
 headers_magalu = {"user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 OPR/86.0.4363.59"}
 
 #Função para criar os links de busca
-def getting_n_creating_magazine_urls(brand):
-    connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
-                            user='admin',
-                            password='turtle316712',
-                            database='Products_Brands',
-                            cursorclass=pymysql.cursors.DictCursor)
+def getting_n_creating_magazine_urls(brand,teste_var=None):
+    if teste_var == None:
+        connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+                                user='admin',
+                                password='turtle316712',
+                                database='Products_Brands',
+                                cursorclass=pymysql.cursors.DictCursor)
 
-    #Criando o caminho do Databae
-    c = connection.cursor()
+        #Criando o caminho do Databae
+        c = connection.cursor()
 
-    #Criando a Query
-    Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
+        #Criando a Query
+        Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
 
-    #Conectando com o banco de dados
-    c.execute(Sql_query)
-    result = c.fetchall()
-    c.close()
-    connection.close()
+        #Conectando com o banco de dados
+        c.execute(Sql_query)
+        result = c.fetchall()
+        c.close()
+        connection.close()
 
-    #Passando todos o dataframe para Lowercase
-    df = pd.DataFrame()
-    df['Brand'] = [item['Brand'] for item in result]
-    df['Name'] = [item['Name'] for item in result]
+        #Passando todos o dataframe para Lowercase
+        df = pd.DataFrame()
+        df['Brand'] = [item['Brand'] for item in result]
+        df['Name'] = [item['Name'] for item in result]
+    else:
+        df = pd.DataFrame()
+        df['Brand'] = brand
+        df['Name'] = teste_var
 
     #Arrumando espaços vazios
     # Arrumano os espaços vazios
@@ -215,21 +220,39 @@ def get_attributes(url):
 
         id_installment_valor_total = id_installment_valor_total + 1
 
-def magalu_final(brand):
+def magalu_final(brand,teste_var=None):
 
-    Log('SPIDER','MAGALU',brand,'INICIOU')
+    if teste_var==None:
+        Log('SPIDER','MAGALU',brand,'INICIOU')
 
-    df = getting_n_creating_magazine_urls(brand)
+        df = getting_n_creating_magazine_urls(brand)
 
-    for url in tqdm(df['Urls_search']):
-        get_attributes(url)
+        for url in tqdm(df['Urls_search']):
+            get_attributes(url)
 
-    dataset_magalu = creating_dataframe(Urls_Magalu, Sellers_Magalu, Price_Magalu, Installment_Magalu_valor_parcela, Installment_Magalu_quantidade, Installment_Magalu_valor_total, SKU_Magalu, Title_Magalu, brand)
+        dataset_magalu = creating_dataframe(Urls_Magalu, Sellers_Magalu, Price_Magalu, Installment_Magalu_valor_parcela, Installment_Magalu_quantidade, Installment_Magalu_valor_total, SKU_Magalu, Title_Magalu, brand)
 
-    current_dir = os.getcwd()
+        current_dir = os.getcwd()
 
-    path_download = current_dir + "\Data\\Brands_Downloads\\" + brand + "\Magazine_" + brand + ".xlsx"
+        path_download = current_dir + "\Data\\Brands_Downloads\\" + brand + "\Magazine_" + brand + ".xlsx"
 
-    dataset_magalu.to_excel(path_download, index=False)
+        dataset_magalu.to_excel(path_download, index=False)
 
-    Log('SPIDER','MAGALU',brand,'FINALIZADO')
+        Log('SPIDER','MAGALU',brand,'FINALIZADO')
+    else:
+        Log('SP.TEST','MAGALU',brand,'INICIOU')
+
+        df = getting_n_creating_magazine_urls(brand)
+
+        for url in tqdm(df['Urls_search']):
+            get_attributes(url)
+
+        dataset_magalu = creating_dataframe(Urls_Magalu, Sellers_Magalu, Price_Magalu, Installment_Magalu_valor_parcela, Installment_Magalu_quantidade, Installment_Magalu_valor_total, SKU_Magalu, Title_Magalu, brand)
+
+        current_dir = os.getcwd()
+
+        path_download = current_dir + "\Data\\Brand_Search_Test\\Magazine_" + brand + ".xlsx"
+
+        dataset_magalu.to_excel(path_download, index=False)
+
+        Log('SP.TEST','MAGALU',brand,'FINALIZADO')

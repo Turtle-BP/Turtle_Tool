@@ -106,8 +106,6 @@ def Add_brand():
     Upload_brand_button = ttk.Button(Add_window, text="Subir Marca", command=lambda: Upload_Brand(Entry_Brand_Name.get(), termos))
     Upload_brand_button.grid(row=7, column=1, padx=5, pady=5, sticky="N")
 
-
-
     Add_window.mainloop()
 
 #FUNÇÃO DE UPLOAD DE NOVA MARCA NOS BANCOS DE DADOS COM COMMIT

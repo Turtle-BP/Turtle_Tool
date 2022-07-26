@@ -12,13 +12,15 @@ from email.mime.base import MIMEBase
 from email import encoders
 import os
 import datetime
+from tqdm import tqdm
 
 from requests import request
 
 #Criando a função de pegar todos os dados de Estoque 
 #Criando função para enviar e-mail 
 def Estoque_Mail():
-    email_path = "Estoque.xlsx"
+    current_dir = os.getcwd()
+    email_path = current_dir + "\Automatic_Scripts\Inventory\Python_Files\Estoque.xlsx"
 
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
 
@@ -88,7 +90,7 @@ def Estoque():
     estoque = []
 
     #Fazendo o loop 
-    for url in hiperlinks:
+    for url in tqdm(hiperlinks):
         time.sleep(1.5)
         try:
             response = urlopen(url)
@@ -120,7 +122,7 @@ def Estoque():
 
     #Download do arquivo 
     current_dir = os.getcwd()
-    download_path = current_dir + "/Estoque.xlsx"
+    download_path = current_dir + "\Automatic_Scripts\Inventory\Python_Files\Estoque.xlsx"
     dataset_estoque.to_excel(download_path, index=False)
 
     #Salvando o Logs dentro do banco 
@@ -129,6 +131,5 @@ def Estoque():
     #Enviando o E-mail 
     Estoque_Mail()
 
-#Executando o arquivo final 
-Estoque()
+
 

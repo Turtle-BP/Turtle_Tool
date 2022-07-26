@@ -6,6 +6,9 @@ from tkinter.messagebox import NO
 import pandas as pd
 import pymysql
 
+#Puxando o script de Estoque 
+from Automatic_Scripts.Inventory.Python_Files.Inventory import Estoque
+
 def Inventory_Page():
     Page = tk.Tk()
     Page.title("Turtle Brand Protection - V.1")
@@ -29,7 +32,7 @@ def Inventory_Page():
     len_label = ttk.Label(Page, text=len_text)
     len_label.grid(row=1, column=1, columnspan=2,padx=10, pady=10, sticky="W")
 
-    Manual_Push = ttk.Button(Page, text="Puxar Manual")
+    Manual_Push = ttk.Button(Page, text="Puxar Manual", command=Estoque)
     Manual_Push.grid(row=2, column=1, padx=5, pady=5, sticky="W")
 
     Insert_url = ttk.Button(Page, text="Adicionar URL")
