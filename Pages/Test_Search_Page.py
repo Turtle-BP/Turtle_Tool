@@ -71,6 +71,23 @@ def Start_Magazine(Marketplace_var, brand):
     else:
         Magazine_Status.config(foreground="red", text="Desativado")
 
+def Start_MercadoL(Marketplace_var, brand):
+    #Importando a função
+    from Bots.Mercado_livre import Mercado_Livre_Final
+
+    if Marketplace_var.get() == "Ligado":
+
+        MercadoL_Status.config(foreground="orange", text="Buscando")
+
+        MercadoL_Status.update_idletasks()
+
+        Mercado_Livre_Final(brand)
+
+        MercadoL_Status.config(foreground="green", text="Finalizado")
+
+        MercadoL_Status.update_idletasks()
+    else:
+        MercadoL_Status.config(foreground="red", text="Desativado")
 
 def Start_Shopee(Marketplace_var, brand):
         #Importando a função
@@ -90,9 +107,10 @@ def Start_Shopee(Marketplace_var, brand):
     else:
         Shopee_Status.config(foreground="red", text="Desativado")
 
-def Start_Spiders(kabum,magalu,shopee,brand):
+def Start_Spiders(kabum,magalu,mercado,shopee,brand):
     Start_Kabum(kabum,brand)
     Start_Magazine(magalu, brand)
+    Start_MercadoL(mercado, brand)
     Start_Shopee(shopee, brand)
 
 
@@ -100,7 +118,7 @@ def Start_Spiders(kabum,magalu,shopee,brand):
 
 def Search_Page():
     #ATRIBUINDO OS ITENS GLOBAIS 
-    global Kabum_Status,Magazine_Status,Shopee_Status
+    global Kabum_Status,Magazine_Status,MercadoL_Status,Shopee_Status
 
     #Criando a lista de itens universal 
     global itens_list,brand_name, Itens_Listbox
@@ -130,7 +148,7 @@ def Search_Page():
     Add_itens_Button.grid(row=5, column=1, padx=5, pady=5, sticky='N')
 
     #Criando o botão 
-    Search_Button = ttk.Button(Search_Page, text="Puxar Itens", command=lambda: Start_Spiders(KabumVar,Brand_Name_Text.get()))
+    Search_Button = ttk.Button(Search_Page, text="Puxar Itens", command=lambda: Start_Spiders(KabumVar,MagazineVar,MercadoL_Status,ShopeeVar,Brand_Name_Text.get()))
     Search_Button.grid(row=6, column=1, padx=5, pady=5, sticky='N')
 
     #Criando a lista onde irá aparecer os itens adicionados 

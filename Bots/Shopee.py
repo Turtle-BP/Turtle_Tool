@@ -70,8 +70,9 @@ def Shopee_final(brand, teste_var=None):
         else:
 
             Dataset_Products = pd.DataFrame()
-            Dataset_Products['MARCA'] = brand
             Dataset_Products['ITEM'] = teste_var
+            Dataset_Products['MARCA'] = brand
+            
 
 
         #Arrumando espaços vazios

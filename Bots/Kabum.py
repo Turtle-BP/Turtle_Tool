@@ -10,7 +10,7 @@ import datetime
 
 #Importando a função de User Agent
 from Global_Scripts.User_agents import Random_user_agents
-
+from Global_Scripts.Log_Registration import Log
 
 Links_Kabum = []
 Urls_Kabum = []
@@ -24,7 +24,7 @@ Installment_Kabum_valor_parcela = []
 Installment_Kabum_valor_total = []
 teste_values = []
 
-from Global_Scripts.Log_Registration import Log
+
 
 #Função para criar os links de busca
 def getting_n_creating_kabum(brand, teste_var=None):
@@ -53,8 +53,9 @@ def getting_n_creating_kabum(brand, teste_var=None):
         df['Name'] = [item['Name'] for item in result]
     else:
         df = pd.DataFrame()
-        df['Brand'] = brand
         df['Name'] = teste_var
+        df['Brand'] = brand
+        
 
     #Passando todo o Dataframe para LowerCase   
 

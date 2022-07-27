@@ -53,8 +53,9 @@ def getting_n_creating_magazine_urls(brand,teste_var=None):
         df['Name'] = [item['Name'] for item in result]
     else:
         df = pd.DataFrame()
-        df['Brand'] = brand
         df['Name'] = teste_var
+        df['Brand'] = brand
+        
 
     #Arrumando espaços vazios
     # Arrumano os espaços vazios
@@ -242,7 +243,7 @@ def magalu_final(brand,teste_var=None):
     else:
         Log('SP.TEST','MAGALU',brand,'INICIOU')
 
-        df = getting_n_creating_magazine_urls(brand)
+        df = getting_n_creating_magazine_urls(brand,teste_var)
 
         for url in tqdm(df['Urls_search']):
             get_attributes(url)
