@@ -30,7 +30,7 @@ def updates_registration(root,lista):
         n_row = n_row + 1
 
 ###3 updatres
-updates_list = ["Página de Brand Test",'Melhora Spiders - Kabum, Shopee',"Puxar Manual - Estoque","Versão teste - Amazon/Shopee/Kabum","Melhora registros logs"]
+updates_list = ["Spider - AliExpress",'Spider - Extra','Spider - Mercado Livre',"Puxar Manual - Estoque","Versão teste - Amazon/Shopee/Kabum","Melhora registros logs"]
 
 def details():
     # Criando a página
@@ -40,7 +40,7 @@ def details():
 
     # Criando as variáveis
     Nome_app = 'Nome: Turtle Tool - Artemis' 
-    Versão_app = "Versão atual: 1.2.11"
+    Versão_app = "Versão atual: 1.2.1"
     ultima = 'última atualização: 26/07/2022'
 
     #Criando Labelframe 
