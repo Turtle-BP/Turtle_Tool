@@ -31,6 +31,26 @@ def Create_Status(Frame_name, Text_value, Color):
 
 
 #################### FUNÇÕES DE SPIDERS ##########################
+def Start_AliExpress(marketplace_var, brand):
+    #Importando a função
+    from Bots.AliExpress import AliExpress_final
+
+    if marketplace_var.get() == "Ligado":
+
+        Ali_Status.config(foreground="orange", text="Buscando")
+
+        Ali_Status.update_idletasks()
+
+        AliExpress_final(brand)
+
+        Ali_Status.config(foreground="green", text="Finalizado")
+
+        Ali_Status.update_idletasks()
+    else:
+        Ali_Status.config(foreground="red", text="Desativado")
+
+
+
 def Start_Amazon(Marketplace_var, brand):
     #Importando a função
     from Bots.Amazon import Amazon_Final
@@ -85,23 +105,23 @@ def Start_Amazon(Marketplace_var, brand):
     #else:
         #Carrefour_Status.config(foreground="red", text="Desativado")
 
-#def Start_Extra(Marketplace_var, brand):
+def Start_Extra(Marketplace_var, brand):
     #Importando a função
-    #from Spiders.Extra import ViaVarejo_final
+    from Bots.Via_Varejo import Via_Varejo_Final
 
-    #if Marketplace_var.get() == "Ligado":
+    if Marketplace_var.get() == "Ligado":
 
-        #Extra_Status.config(foreground="orange", text="Buscando")
+        Extra_Status.config(foreground="orange", text="Buscando")
 
-        #Extra_Status.update_idletasks()
+        Extra_Status.update_idletasks()
 
-        #ViaVarejo_final(brand,'padronized')
+        Via_Varejo_Final(brand)
 
-        #Extra_Status.config(foreground="green", text="Finalizado")
+        Extra_Status.config(foreground="green", text="Finalizado")
 
-        #Extra_Status.update_idletasks()
-    #else:
-        #Extra_Status.config(foreground="red", text="Desativado")
+        Extra_Status.update_idletasks()
+    else:
+        Extra_Status.config(foreground="red", text="Desativado")
 
 
 
@@ -177,8 +197,10 @@ def Start_Shopee(Marketplace_var, brand):
     else:
         Shopee_Status.config(foreground="red", text="Desativado")
 
-def Start_Spiders(Amazon,Kabum,Magazine,mercado,shopee, brand_final):
+def Start_Spiders(AliExpress,Amazon,Extra,Kabum,Magazine,mercado,shopee, brand_final):
+    Start_AliExpress(AliExpress, brand_final)
     Start_Amazon(Amazon, brand_final)
+    Start_Extra(Extra, brand_final)
     Start_Magazine(Magazine,brand_final)
     Start_MercadoL(mercado, brand_final)
     Start_Kabum(Kabum,brand_final)
@@ -204,12 +226,6 @@ def Logs_records(table):
     c.close()
 
     log_text = []
-    data_list = [item['DATA'] for item in result]
-    hour_list = [item['HORA'] for item in result]
-    scripts_list = [item['SCRIPT'] for item in result]
-    marketplace_list = [item['MARKETPLACE'] for item in result]
-    brand_list = [item['BRAND'] for item in result]
-    status_list = [item['STATUS'] for item in result]
 
     for dictionary in result:
         log_text.append(list(dictionary.values()))
@@ -223,7 +239,7 @@ def Logs_records(table):
 def Main_Page():
 
     #DEFININCO OS GLOBAIS NECESSÁRIOS PARA OS SPIDERS
-    global Amazon_Status,Kabum_Status,Magazine_Status,MercadoL_Status,Shopee_Status
+    global Ali_Status,Amazon_Status,Extra_Status,Kabum_Status,Magazine_Status,MercadoL_Status,Shopee_Status
 
 # Criando a página
     Main = tk.Tk()
@@ -348,7 +364,7 @@ def Main_Page():
     Menu_Brand_Element.grid(row=6, column=1, padx=10, pady=10, sticky="W")
 
     #Botão para procurar Manual
-    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual", command=lambda: Start_Spiders(AmazonVar,KabumVar,MagazineVar,MercadoLVar,ShopeeVar,Brands_Choice.get()))
+    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual", command=lambda: Start_Spiders(AliVar,AmazonVar,ExtraVar,KabumVar,MagazineVar,MercadoLVar,ShopeeVar,Brands_Choice.get()))
     Manual_Search_Button.grid(row=6, column=2,columnspan=2)
 
     #Botão para fazer revisão
