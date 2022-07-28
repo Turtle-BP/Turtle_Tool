@@ -57,7 +57,6 @@ def Inspec_data(brand_name):
     Max_Price_Installment_Label.config(text="Maior valor (Installment): {}".format(data_filtrada['Installment Price'].max()))
     Min_Price_Installmnet_Label.config(text="Menor valor (Installment): {}".format(data_filtrada['Installment Price'].min()))
 
-    print(data_filtrada)
 
     #Atualizando botão
     Main_Button.config(text='Subir Dados', command=lambda: Upload_to_aws(data_filtrada, brand_name))

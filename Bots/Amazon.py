@@ -119,7 +119,7 @@ def Amazon_Final(brand):
         c = connection.cursor()
 
         #Criando a Query
-        Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
+        Sql_query = "SELECT * FROM Exclusao WHERE Brand = '%s'" % (brand)
 
         #Conectando com o banco de dados
         c.execute(Sql_query)

@@ -23,7 +23,8 @@ Internacional_Ali = []
 Installment_full_Ali = []
 
 def AliExpress_final(brand, teste_var=None):
-
+    global Ali_links
+    
     def creating_aliexpress_links(brand, teste_var=None):
         if teste_var==None:
             connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
@@ -81,7 +82,6 @@ def AliExpress_final(brand, teste_var=None):
             Ali_links.append(a['href'])
 
     def search_atributes(urls):
-
         for url in urls:
             url_nova = 'https:' + url
 

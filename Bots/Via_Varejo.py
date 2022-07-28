@@ -34,6 +34,7 @@ internacional_name_correct = []
 
 
 def Via_Varejo_Final(brand,teste_var=None):
+    global Selenium_path, options
 
     def creating_viavarejo_urls(brand,teste_var=None):
         
@@ -214,6 +215,7 @@ def Via_Varejo_Final(brand,teste_var=None):
         return df_sellers
 
     def get_sellers(url):
+        driver = webdriver.Chrome(Selenium_path,options=options)
         driver.get(url)
         time.sleep(5)
 
