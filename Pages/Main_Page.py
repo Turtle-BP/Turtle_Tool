@@ -123,8 +123,6 @@ def Start_Extra(Marketplace_var, brand):
     else:
         Extra_Status.config(foreground="red", text="Desativado")
 
-
-
 def Start_Kabum(Marketplace_var, brand):
     #Importando a função
     from Bots.Kabum import Kabum_final
@@ -198,13 +196,34 @@ def Start_Shopee(Marketplace_var, brand):
         Shopee_Status.config(foreground="red", text="Desativado")
 
 def Start_Spiders(AliExpress,Amazon,Extra,Kabum,Magazine,mercado,shopee, brand_final):
-    Start_AliExpress(AliExpress, brand_final)
-    Start_Amazon(Amazon, brand_final)
-    Start_Extra(Extra, brand_final)
-    Start_Magazine(Magazine,brand_final)
-    Start_MercadoL(mercado, brand_final)
-    Start_Kabum(Kabum,brand_final)
-    Start_Shopee(shopee,brand_final)
+    try:
+        Start_AliExpress(AliExpress, brand_final)
+    except:
+        pass
+    try:
+        Start_Amazon(Amazon, brand_final)
+    except:
+        pass
+    try:
+        Start_Extra(Extra, brand_final)
+    except:
+        pass
+    try:
+        Start_Kabum(Kabum,brand_final)
+    except:
+        pass
+    try:
+        Start_Magazine(Magazine, brand_final)
+    except:
+        pass
+    try:
+        Start_MercadoL(mercado, brand_final)
+    except:
+        pass
+    try:
+        Start_Shopee(shopee, brand_final)
+    except:
+        pass
 
 
 ### FUNÇÕES DE DATA #############

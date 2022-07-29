@@ -37,31 +37,35 @@ More_ID_Amazon = []
 from Global_Scripts.Log_Registration import Log
 
 #Criando a função final
-def Amazon_Final(brand):
+def Amazon_Final(brand, teste_var=None):
 
     #Criando a função de criar Links
-    def Creating_Products_Urls(brand):
+    def Creating_Products_Urls(brand,teste_var=None):
+        if teste_var == None:
+            connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+                                user='admin',
+                                password='turtle316712',
+                                database='Products_Brands',
+                                cursorclass=pymysql.cursors.DictCursor)
 
-        connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
-                             user='admin',
-                             password='turtle316712',
-                             database='Products_Brands',
-                             cursorclass=pymysql.cursors.DictCursor)
+            #Criando o caminho do Databae
+            c = connection.cursor()
 
-        #Criando o caminho do Databae
-        c = connection.cursor()
+            #Criando a Query
+            Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
 
-        #Criando a Query
-        Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
+            #Conectando com o banco de dados
+            c.execute(Sql_query)
+            result = c.fetchall()
 
-        #Conectando com o banco de dados
-        c.execute(Sql_query)
-        result = c.fetchall()
-
-        #Passando todos o dataframe para Lowercase
-        Dataset_Products = pd.DataFrame()
-        Dataset_Products['MARCA'] = [item['Brand'] for item in result]
-        Dataset_Products['ITEM'] = [item['Name'] for item in result]
+            #Passando todos o dataframe para Lowercase
+            Dataset_Products = pd.DataFrame()
+            Dataset_Products['MARCA'] = [item['Brand'] for item in result]
+            Dataset_Products['ITEM'] = [item['Name'] for item in result]
+        else:
+            Dataset_Products = pd.DataFrame()
+            Dataset_Products['ITEM'] = teste_var
+            Dataset_Products['MMARCA'] = brand
 
         #Arrumando os espaços vazios
         Dataset_Products['ITEM'] = Dataset_Products['ITEM'].str.replace(" ","+")
@@ -559,65 +563,126 @@ def Amazon_Final(brand):
     driver = webdriver.Chrome(Selenium_path,options=options)
 
     #Fazendo a condiconal
+    if teste_var == None:
+        Log('SPIDER','AMAZON',brand,'INICIOU')
+        #Fazendo a função de criar urls
+        Df_Urls = Creating_Products_Urls(brand)
 
-    #Fazendo a função de criar urls
-    Df_Urls = Creating_Products_Urls(brand)
+        #Fazendo a função para pegar os links de produtos
+        for url in tqdm(Df_Urls['Search_Urls']):
+            Creating_Search_url(url)
 
-    #Fazendo a função para pegar os links de produtos
-    for url in tqdm(Df_Urls['Search_Urls']):
-        Creating_Search_url(url)
+        #Limpando as urls
+        Clean_Urls = Cleaning_Urls(Urls_Amazon,brand)
 
-    #Limpando as urls
-    Clean_Urls = Cleaning_Urls(Urls_Amazon,brand)
+        #Pegando os atributos
+        for url in tqdm(Clean_Urls['Urls_finais']):
+            Search_Atributes(url)
 
-    #Pegando os atributos
-    for url in tqdm(Clean_Urls['Urls_finais']):
-        Search_Atributes(url)
+        #Criando o dataframe inicial
+        Df_inicial = Raw_Dataframe(Clean_Urls['Urls_finais'], Seller_Amazon, Price_Amazon, Title_Amazon, Amazon_installment_price_full, More_Offers_List)
 
-    #Criando o dataframe inicial
-    Df_inicial = Raw_Dataframe(Clean_Urls['Urls_finais'], Seller_Amazon, Price_Amazon, Title_Amazon, Amazon_installment_price_full, More_Offers_List)
+        #Pegando os sellers de botão
+        Get_Button_Sellers(Df_inicial)
 
-    #Pegando os sellers de botão
-    Get_Button_Sellers(Df_inicial)
+        #Criando o DataFrame final
+        Button_Dataframe = Dataframe_Button(ASIN_Button_Amazon,Seller_Button_Amazon,Price_Button_Amazon,Df_inicial)
 
-    #Criando o DataFrame final
-    Button_Dataframe = Dataframe_Button(ASIN_Button_Amazon,Seller_Button_Amazon,Price_Button_Amazon,Df_inicial)
+        #Função para carregar os dois dataframe juntos
+        Df_final_with_button = Dataframe_Inicial_With_Button(Df_inicial, Button_Dataframe)
 
-    #Função para carregar os dois dataframe juntos
-    Df_final_with_button = Dataframe_Inicial_With_Button(Df_inicial, Button_Dataframe)
+        #Pegar apenas os More
+        More_Offers_Dataframe = Df_final_with_button[Df_final_with_button['MORE'] != 0]
 
-    #Pegar apenas os More
-    More_Offers_Dataframe = Df_final_with_button[Df_final_with_button['MORE'] != 0]
+        # REALIZANDO AS CONDICIONAIS DE MORE SELLERS
+        for id, more in zip(More_Offers_Dataframe.ID, More_Offers_Dataframe.MORE):
+            if more < 10:
+                search_more_offers_1(id)
+            elif (more > 10) and (more < 20):
+                search_more_offers_1(id)
+                search_more_offers_2(id)
+            elif (more > 20) and (more < 30):
+                search_more_offers_1(id)
+                search_more_offers_2(id)
+                search_more_offers_3(id)
+            elif (more > 30) and (more < 40):
+                search_more_offers_1(id)
+                search_more_offers_2(id)
+                search_more_offers_3(id)
+                search_more_offers_4(id)
+            elif (more > 40) and (more < 50):
+                search_more_offers_1(id)
+                search_more_offers_2(id)
+                search_more_offers_3(id)
+                search_more_offers_4(id)
+                search_more_offers_5(id)
 
-    # REALIZANDO AS CONDICIONAIS DE MORE SELLERS
-    for id, more in zip(More_Offers_Dataframe.ID, More_Offers_Dataframe.MORE):
-        if more < 10:
-            search_more_offers_1(id)
-        elif (more > 10) and (more < 20):
-            search_more_offers_1(id)
-            search_more_offers_2(id)
-        elif (more > 20) and (more < 30):
-            search_more_offers_1(id)
-            search_more_offers_2(id)
-            search_more_offers_3(id)
-        elif (more > 30) and (more < 40):
-            search_more_offers_1(id)
-            search_more_offers_2(id)
-            search_more_offers_3(id)
-            search_more_offers_4(id)
-        elif (more > 40) and (more < 50):
-            search_more_offers_1(id)
-            search_more_offers_2(id)
-            search_more_offers_3(id)
-            search_more_offers_4(id)
-            search_more_offers_5(id)
+        Dataframe_More = Creating_Dataframe_More_Sellers(More_ID_Amazon,More_Seller_Amazon,More_Price_Amazon,Df_inicial)
 
-    Dataframe_More = Creating_Dataframe_More_Sellers(More_ID_Amazon,More_Seller_Amazon,More_Price_Amazon,Df_inicial)
+        Df_final = pd.concat([Df_final_with_button,Dataframe_More])
 
-    Df_final = pd.concat([Df_final_with_button,Dataframe_More])
+        Download_path = Current_Dir + "\Data\\Brands_Downloads\\" + brand + "\Amazon_" + brand + ".xlsx"
 
-    Download_path = Current_Dir + "\Data\\Brands_Downloads\\" + brand + "\Amazon_" + brand + ".xlsx"
+        Df_final.to_excel(Download_path, index=False)
 
-    Df_final.to_excel(Download_path, index=False)
+        Log('SPIDER','AMAZON',brand,'FINALIZOU')
+    else:
+        Log('SP.TEST','AMAZON',brand,'INICIOU')
+        #Fazendo a função de criar urls
+        Df_Urls = Creating_Products_Urls(brand,teste_var)
 
-    Log('SPIDER','AMAZON',brand,'FINALIZOU')
+        #Fazendo a função para pegar os links de produtos
+        for url in tqdm(Df_Urls['Search_Urls']):
+            Creating_Search_url(url)
+
+        #Pegando os atributos
+        for url in tqdm(Urls_Amazon):
+            Search_Atributes(url)
+
+        #Criando o dataframe inicial
+        Df_inicial = Raw_Dataframe(Urls_Amazon, Seller_Amazon, Price_Amazon, Title_Amazon, Amazon_installment_price_full, More_Offers_List)
+
+        #Pegando os sellers de botão
+        Get_Button_Sellers(Df_inicial)
+
+        #Criando o DataFrame final
+        Button_Dataframe = Dataframe_Button(ASIN_Button_Amazon,Seller_Button_Amazon,Price_Button_Amazon,Df_inicial)
+
+        #Função para carregar os dois dataframe juntos
+        Df_final_with_button = Dataframe_Inicial_With_Button(Df_inicial, Button_Dataframe)
+
+        #Pegar apenas os More
+        More_Offers_Dataframe = Df_final_with_button[Df_final_with_button['MORE'] != 0]
+
+        # REALIZANDO AS CONDICIONAIS DE MORE SELLERS
+        for id, more in zip(More_Offers_Dataframe.ID, More_Offers_Dataframe.MORE):
+            if more < 10:
+                search_more_offers_1(id)
+            elif (more > 10) and (more < 20):
+                search_more_offers_1(id)
+                search_more_offers_2(id)
+            elif (more > 20) and (more < 30):
+                search_more_offers_1(id)
+                search_more_offers_2(id)
+                search_more_offers_3(id)
+            elif (more > 30) and (more < 40):
+                search_more_offers_1(id)
+                search_more_offers_2(id)
+                search_more_offers_3(id)
+                search_more_offers_4(id)
+            elif (more > 40) and (more < 50):
+                search_more_offers_1(id)
+                search_more_offers_2(id)
+                search_more_offers_3(id)
+                search_more_offers_4(id)
+                search_more_offers_5(id)
+
+        Dataframe_More = Creating_Dataframe_More_Sellers(More_ID_Amazon,More_Seller_Amazon,More_Price_Amazon,Df_inicial)
+
+        Df_final = pd.concat([Df_final_with_button,Dataframe_More])
+
+        Download_path = Current_Dir + "\Data\\Brand_Search_Test\\Amazon_" + brand + ".xlsx"
+
+        Df_final.to_excel(Download_path, index=False)
+
+        Log('SP.TEST','AMAZON',brand,'FINALIZOU')

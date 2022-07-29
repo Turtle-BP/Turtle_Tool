@@ -35,6 +35,42 @@ def Creating_dataframe(brand_list, products_lists):
 
     return Dataset_products
 
+def Start_AliExpress(Marketplace_var,brand):
+    #Importando a função
+    from Bots.AliExpress import AliExpress_final
+
+    if Marketplace_var.get() == "Ligado":
+
+        Ali_Status.config(foreground="orange", text="Buscando")
+
+        Ali_Status.update_idletasks()
+
+        AliExpress_final(brand,itens_list)
+
+        Ali_Status.config(foreground="green", text="Finalizado")
+
+        Ali_Status.update_idletasks()
+    else:
+        Ali_Status.config(foreground="red", text="Desativado")   
+
+def Start_Amazon(Marketplace_var, brand):
+        #Importando a função
+    from Bots.Amazon import Amazon_Final
+
+    if Marketplace_var.get() == "Ligado":
+
+        Amazon_Status.config(foreground="orange", text="Buscando")
+
+        Amazon_Status.update_idletasks()
+
+        Amazon_Final(brand,itens_list)
+
+        Amazon_Status.config(foreground="green", text="Finalizado")
+
+        Amazon_Status.update_idletasks()
+    else:
+        Amazon_Status.config(foreground="red", text="Desativado") 
+
 def Start_Kabum(Marketplace_var, brand):    
     #Importando a função
     from Bots.Kabum import Kabum_final
@@ -107,18 +143,37 @@ def Start_Shopee(Marketplace_var, brand):
     else:
         Shopee_Status.config(foreground="red", text="Desativado")
 
-def Start_Spiders(kabum,magalu,mercado,shopee,brand):
-    Start_Kabum(kabum,brand)
-    Start_Magazine(magalu, brand)
-    Start_MercadoL(mercado, brand)
-    Start_Shopee(shopee, brand)
-
+def Start_Spiders(AliExpress,Amazon,kabum,magalu,mercado,shopee,brand):
+    try:
+        Start_AliExpress(AliExpress, brand)
+    except:
+        pass
+    try:
+        Start_Amazon(Amazon, brand)
+    except:
+        pass
+    try:
+        Start_Kabum(kabum,brand)
+    except:
+        pass
+    try:
+        Start_Magazine(magalu, brand)
+    except:
+        pass
+    try:
+        Start_MercadoL(mercado, brand)
+    except:
+        pass
+    try:
+        Start_Shopee(shopee, brand)
+    except:
+        pass
 
 
 
 def Search_Page():
     #ATRIBUINDO OS ITENS GLOBAIS 
-    global Kabum_Status,Magazine_Status,MercadoL_Status,Shopee_Status
+    global Ali_Status,Amazon_Status,Kabum_Status,Magazine_Status,MercadoL_Status,Shopee_Status
 
     #Criando a lista de itens universal 
     global itens_list,brand_name, Itens_Listbox
