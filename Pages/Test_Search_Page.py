@@ -203,7 +203,7 @@ def Search_Page():
     Add_itens_Button.grid(row=5, column=1, padx=5, pady=5, sticky='N')
 
     #Criando o botão 
-    Search_Button = ttk.Button(Search_Page, text="Puxar Itens", command=lambda: Start_Spiders(KabumVar,MagazineVar,MercadoL_Status,ShopeeVar,Brand_Name_Text.get()))
+    Search_Button = ttk.Button(Search_Page, text="Puxar Itens", command=lambda: Start_Spiders(AliVar,AmazonVar,KabumVar,MagazineVar,MercadoL_Status,ShopeeVar,Brand_Name_Text.get()))
     Search_Button.grid(row=6, column=1, padx=5, pady=5, sticky='N')
 
     #Criando a lista onde irá aparecer os itens adicionados 
