@@ -107,7 +107,7 @@ def Amazon_Final(brand):
             pass
 
     #Criando a função para limpar as urls
-    def Cleaning_Urls(urls):
+    def Cleaning_Urls(urls,brand):
 
         connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
                              user='admin',
@@ -127,7 +127,7 @@ def Amazon_Final(brand):
 
         #Passando todos o dataframe para Lowercase
         df_itens = pd.DataFrame()
-        df_itens['Words'] = [item['Brand'] for item in result]
+        df_itens['Words'] = [item['Words'] for item in result]
 
         clean_urls = pd.DataFrame()
 
@@ -568,7 +568,7 @@ def Amazon_Final(brand):
         Creating_Search_url(url)
 
     #Limpando as urls
-    Clean_Urls = Cleaning_Urls(Urls_Amazon)
+    Clean_Urls = Cleaning_Urls(Urls_Amazon,brand)
 
     #Pegando os atributos
     for url in tqdm(Clean_Urls['Urls_finais']):

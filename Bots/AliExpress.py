@@ -24,7 +24,7 @@ Installment_full_Ali = []
 
 def AliExpress_final(brand, teste_var=None):
     global Ali_links
-    
+
     def creating_aliexpress_links(brand, teste_var=None):
         if teste_var==None:
             connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
@@ -37,7 +37,7 @@ def AliExpress_final(brand, teste_var=None):
             c = connection.cursor()
 
             #Criando a Query
-            Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % (brand)
+            Sql_query = "SELECT * FROM Products WHERE Brand = '%s'" % ('Wacom')
 
             #Conectando com o banco de dados
             c.execute(Sql_query)
@@ -54,10 +54,10 @@ def AliExpress_final(brand, teste_var=None):
             df['Name'] = teste_var
             df['Brand'] = brand
 
-        df['Name'] = df['Name'].str.replace(" ","-")
-        df['Urls'] = df['Brand'] + "-" + df['Name']
+        df['Name'] = df['Name'].str.replace(" ","+")
+        df['Urls'] = df['Brand'] + "+" + df['Name']
 
-        df['Urls_search'] = "https://www.pt.aliexpress.com/premium/" + df['Urls'] + ".html"
+        df['Urls_search'] = "https://pt.aliexpress.com/wholesale?SearchText=" + df['Urls']
 
         return df
 
@@ -80,6 +80,7 @@ def AliExpress_final(brand, teste_var=None):
 
         for a in Soup.find_all("a", href=True):
             Ali_links.append(a['href'])
+            print(len(Ali_links))
 
     def search_atributes(urls):
         for url in urls:
@@ -164,6 +165,8 @@ def AliExpress_final(brand, teste_var=None):
 
         for url in tqdm(Df_Products['Urls_search']):
             getting_links(url)
+
+        Ali_links = [s for s in Ali_links if '/item/' in s]
 
         for url in tqdm(Ali_links):
             search_atributes(url)

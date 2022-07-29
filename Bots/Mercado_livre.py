@@ -352,7 +352,7 @@ def Mercado_Livre_Final(brand,teste_var=None):
         for url in Df_Raw['Urls_search']:
             search_links(url)
 
-        for url in ml_urls:
+        for url in tqdm(ml_urls):
             search_attributes(url)
 
         dataset_mercadolivre_sujo = create_dataframe(ml_urls,ml_seller,ml_price,ml_installment,ml_catalog_id,ml_internacional)
@@ -366,7 +366,7 @@ def Mercado_Livre_Final(brand,teste_var=None):
 
         dataset_mercadolivre_limpo = dataset_mercadolivre_sujo[dataset_mercadolivre_sujo['CATALOGO'] == 'NORMAL']
 
-        df_final = pd.concat([dataset_catalogo,dataset_mercadolivre_limpo])
+        df_final = pd.concat([dataset_mercadolivre_limpo,dataset_catalogo])
 
         current_dir = os.getcwd()
 
