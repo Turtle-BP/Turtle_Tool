@@ -49,8 +49,6 @@ def Start_AliExpress(marketplace_var, brand):
     else:
         Ali_Status.config(foreground="red", text="Desativado")
 
-
-
 def Start_Amazon(Marketplace_var, brand):
     #Importando a função
     from Bots.Amazon import Amazon_Final
@@ -69,23 +67,23 @@ def Start_Amazon(Marketplace_var, brand):
     else:
         Amazon_Status.config(foreground="red", text="Desativado")
 
-#def Start_Americanas(Marketplace_var, brand):
+def Start_Americanas(Marketplace_var, brand):
     #Importando a função
-    #from Spiders.Americanas import americanas_final
+    from Bots.Americanas import Americana_Final
 
-    #if Marketplace_var.get() == "Ligado":
+    if Marketplace_var.get() == "Ligado":
 
-        #Americanas_Status.config(foreground="orange", text="Buscando")
+        Americanas_Status.config(foreground="orange", text="Buscando")
 
-        #Americanas_Status.update_idletasks()
+        Americanas_Status.update_idletasks()
 
-        #americanas_final(brand,'padronized')
+        Americana_Final(brand)
 
-        #Americanas_Status.config(foreground="green", text="Finalizado")
+        Americanas_Status.config(foreground="green", text="Finalizado")
 
-        #Americanas_Status.update_idletasks()
-    #else:
-        #Americanas_Status.config(foreground="red", text="Desativado")
+        Americanas_Status.update_idletasks()
+    else:
+        Americanas_Status.config(foreground="red", text="Desativado")
 
 #def Start_Carrefour(Marketplace_var, brand):
     #Importando a função
@@ -195,13 +193,17 @@ def Start_Shopee(Marketplace_var, brand):
     else:
         Shopee_Status.config(foreground="red", text="Desativado")
 
-def Start_Spiders(AliExpress,Amazon,Extra,Kabum,Magazine,mercado,shopee, brand_final):
+def Start_Spiders(AliExpress,Amazon,Americanas,Extra,Kabum,Magazine,mercado,shopee, brand_final):
     try:
         Start_AliExpress(AliExpress, brand_final)
     except:
         pass
     try:
         Start_Amazon(Amazon, brand_final)
+    except:
+        pass
+    try:
+        Start_Americanas(Americanas,brand_final)
     except:
         pass
     try:
@@ -258,7 +260,7 @@ def Logs_records(table):
 def Main_Page():
 
     #DEFININCO OS GLOBAIS NECESSÁRIOS PARA OS SPIDERS
-    global Ali_Status,Amazon_Status,Extra_Status,Kabum_Status,Magazine_Status,MercadoL_Status,Shopee_Status
+    global Ali_Status,Amazon_Status,Americanas_Status,Extra_Status,Kabum_Status,Magazine_Status,MercadoL_Status,Shopee_Status
 
 # Criando a página
     Main = tk.Tk()
@@ -383,7 +385,7 @@ def Main_Page():
     Menu_Brand_Element.grid(row=6, column=1, padx=10, pady=10, sticky="W")
 
     #Botão para procurar Manual
-    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual", command=lambda: Start_Spiders(AliVar,AmazonVar,ExtraVar,KabumVar,MagazineVar,MercadoLVar,ShopeeVar,Brands_Choice.get()))
+    Manual_Search_Button = ttk.Button(Menu_Spiders, text="Procura Manual", command=lambda: Start_Spiders(AliVar,AmazonVar,AmericanasVar,ExtraVar,KabumVar,MagazineVar,MercadoLVar,ShopeeVar,Brands_Choice.get()))
     Manual_Search_Button.grid(row=6, column=2,columnspan=2)
 
     #Botão para fazer revisão
