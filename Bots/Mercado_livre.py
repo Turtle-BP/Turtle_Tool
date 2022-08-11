@@ -357,7 +357,7 @@ def Mercado_Livre_Final(brand,teste_var=None):
 
         dataset_mercadolivre_sujo = create_dataframe(ml_urls,ml_seller,ml_price,ml_installment,ml_catalog_id,ml_internacional)
 
-        dataset_catalogo_sem_links = dataset_mercadolivre_sujo[dataset_mercadolivre_sujo['CATALOGO'] != "NORMAL"]
+        dataset_catalogo_sem_links = dataset_mercadolivre_sujo[dataset_mercadolivre_sujo['CATALOGO'] != 'NORMAL']
 
         for url in dataset_catalogo_sem_links['CATALOGO']:
             search_catalog(url)
