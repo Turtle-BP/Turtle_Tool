@@ -64,10 +64,10 @@ def getting_n_creating_kabum(brand, teste_var=None):
     # df['Name'] = df['Name'].str.replace("-", "+")
 
     # Criando uma nova coluna no database com a formatação certa
-    df['Urls'] = df['Brand'] + "-" + df['Name']
+    df['Urls'] = df['Brand'] + "+" + df['Name']
 
     # Criando a nova coluna que são as urls de pesquisa
-    df['Urls_search'] = "https://www.kabum.com.br/busca?query=" + df['Urls']
+    df['Urls_search'] = "https://www.kabum.com.br/busca/" + df['Urls']
 
     return df
 
