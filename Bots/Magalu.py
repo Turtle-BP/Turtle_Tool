@@ -66,7 +66,7 @@ def getting_n_creating_magazine_urls(brand,teste_var=None):
     df['Urls'] = df['Brand'] + "+" + df['Name']
 
     # Criando a nova coluna que são as urls de pesquisa
-    df['Urls_search'] = "https://www.magazineluiza.com.br/_next/data/-vXppgKYsYnDT539yS0Ew/busca/" + \
+    df['Urls_search'] = "https://www.magazineluiza.com.br/_next/data/R6tS6cEvp8M8KDYEopUpV/busca/" + \
     df['Brand'][0] + "%2B" + df['Name'] + ".json?slug=busca&slug=" + \
     df['Brand'][0] + "%2B" + df['Name']
 
