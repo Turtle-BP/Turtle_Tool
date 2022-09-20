@@ -557,7 +557,7 @@ def Amazon_Final(brand, teste_var=None):
     Current_Dir = os.getcwd()
 
     #Criando o Path do arquivo de Selenium
-    Selenium_path = Current_Dir + "\Data\\ChromeDrivers\\Selenium_103"
+    Selenium_path = Current_Dir + "\Data\\ChromeDrivers\\Selenium_105"
 
     #Abrindo o WebDriver
     driver = webdriver.Chrome(Selenium_path,options=options)

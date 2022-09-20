@@ -74,7 +74,7 @@ def getting_n_creating_kabum(brand, teste_var=None):
 def search_links(url):
     global Links_Kabum
 
-    time.sleep(5)
+    time.sleep(20)
 
     Headers_Kabum = Random_user_agents('kabum')
     response = requests.get(url, headers=Headers_Kabum)
@@ -88,7 +88,7 @@ def search_links(url):
     Links_Kabum = [s for s in Links_Kabum if 'produto' in s]
 
 def get_attributes(url):
-    time.sleep(10)
+    time.sleep(30)
 
     Headers_Kabum = Random_user_agents('kabum')
     response = requests.get(url, headers=Headers_Kabum)

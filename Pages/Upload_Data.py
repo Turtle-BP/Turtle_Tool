@@ -21,7 +21,7 @@ from Global_Scripts.Menu_Brands import getting_brands
 #Função para inspecionar os dados
 def Inspec_data(brand_name):
     #Abrindo os dados
-    data = pd.read_excel(r"G:\.shortcut-targets-by-id\1VAK5JIWTmtamcYtBHQGeL7FVwcki0pRp\BRAND PROTECTION\Brand Protection_Daily Report.xlsb", engine='pyxlsb', header=1,convert_float=True)
+    data = pd.read_excel(r"H:\.shortcut-targets-by-id\1VAK5JIWTmtamcYtBHQGeL7FVwcki0pRp\BRAND PROTECTION\Brand Protection_Daily Report.xlsb", engine='pyxlsb', header=1,convert_float=True)
 
     #Arrumando a coluna da data
     data['Date'] = pd.TimedeltaIndex(data['Date'], unit='d') + datetime.datetime(1899,12,30)
