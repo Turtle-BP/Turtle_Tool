@@ -198,10 +198,7 @@ def Start_Spiders(AliExpress,Amazon,Americanas,Extra,Kabum,Magazine,mercado,shop
         Start_AliExpress(AliExpress, brand_final)
     except:
         pass
-    try:
-        Start_Amazon(Amazon, brand_final)
-    except:
-        pass
+    Start_Amazon(Amazon, brand_final)
     try:
         Start_Americanas(Americanas,brand_final)
     except:
@@ -214,10 +211,7 @@ def Start_Spiders(AliExpress,Amazon,Americanas,Extra,Kabum,Magazine,mercado,shop
         Start_Kabum(Kabum,brand_final)
     except:
         pass
-    try:
-        Start_Magazine(Magazine, brand_final)
-    except:
-        pass
+    Start_Magazine(Magazine, brand_final)
     try:
         Start_MercadoL(mercado, brand_final)
     except:

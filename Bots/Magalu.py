@@ -66,7 +66,7 @@ def getting_n_creating_magazine_urls(brand,teste_var=None):
     df['Urls'] = df['Brand'] + "+" + df['Name']
 
     # Criando a nova coluna que são as urls de pesquisa
-    df['Urls_search'] = "https://www.magazineluiza.com.br/_next/data/hwO37CLiGD3yqMPpvzK0L/busca/" + \
+    df['Urls_search'] = "https://www.magazineluiza.com.br/_next/data/gq9iI079tqNyQodU5ztFG/busca/" + \
     df['Brand'][0] + "%2B" + df['Name'] + ".json?slug=busca&slug=" + \
     df['Brand'][0] + "%2B" + df['Name']
 
@@ -86,7 +86,7 @@ def creating_dataframe(urls, sellers, price, installment, parcel, installment_to
     Dataframe['SELLER'] = sellers
 
     Dataframe['PRICE'] = price
-    Dataframe['PRICE'] = Dataframe['PRICE'].astype('float')
+    #Dataframe['PRICE'] = Dataframe['PRICE'].astype('float')
 
 
     Dataframe['INSTALLMENT'] = installment
@@ -110,9 +110,9 @@ def creating_dataframe(urls, sellers, price, installment, parcel, installment_to
     #Colocando na ordem correta
     Dataframe = Dataframe[['DATE', 'URL', 'MARKETPLACE', 'SELLER', 'PRICE', 'PARCEL', 'INSTALLMENT', 'INSTALLMENT_PAYMENT', 'ID', 'PRODUCT']]
 
-    Dataframe['INSTALLMENT'] = Dataframe['INSTALLMENT'].astype('float')
-    Dataframe['PARCEL'] = Dataframe['PARCEL'].astype('int')
-    Dataframe['INSTALLMENT_PAYMENT'] = Dataframe['INSTALLMENT_PAYMENT'].astype('float')
+    #Dataframe['INSTALLMENT'] = Dataframe['INSTALLMENT'].astype('float')
+    ##Dataframe['PARCEL'] = Dataframe['PARCEL'].astype('int')
+    #Dataframe['INSTALLMENT_PAYMENT'] = Dataframe['INSTALLMENT_PAYMENT'].astype('float')
 
     return Dataframe
 
