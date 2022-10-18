@@ -39,9 +39,9 @@ def details():
     details_page.geometry('450x200')
 
     # Criando as variáveis
-    Nome_app = 'Nome: Turtle Tool - Artemis' 
-    Versão_app = "Versão atual: 1.2.4"
-    ultima = 'última atualização: 26/07/2022'
+    Nome_app = 'Nome: Turtle Tool - Beta' 
+    Versão_app = "Versão atual: 1.3.0"
+    ultima = 'última atualização: 18/10/2022'
 
     #Criando Labelframe 
     Detaisl_Frame = ttk.LabelFrame(details_page, text="Detalhes App")

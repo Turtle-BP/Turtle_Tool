@@ -320,16 +320,16 @@ def Amazon_Final(brand, teste_var=None):
         Dataframe_Button['SELLER'] = sellers
 
         Dataframe_Button['PRICE'] = price
-        Dataframe_Button['PRICE'] = Dataframe_Button['PRICE'].str.replace(".", "", regex=True)
-        Dataframe_Button['PRICE'] = Dataframe_Button['PRICE'].str.replace("R$", "", regex=False)
-        Dataframe_Button['PRICE'] = Dataframe_Button['PRICE'].str.replace(",", ".", regex=True)
-        Dataframe_Button['PRICE'] = Dataframe_Button['PRICE'].astype('float')
+        #Dataframe_Button['PRICE'] = Dataframe_Button['PRICE'].str.replace(".", "", regex=True)
+        #Dataframe_Button['PRICE'] = Dataframe_Button['PRICE'].str.replace("R$", "", regex=False)
+        #Dataframe_Button['PRICE'] = Dataframe_Button['PRICE'].str.replace(",", ".", regex=True)
+        #Dataframe_Button['PRICE'] = Dataframe_Button['PRICE'].astype('float')
 
         Dataframe_Button['PARCEL'] = 10
 
-        Dataframe_Button['INSTALLMENT'] = Dataframe_Button['PRICE'] / Dataframe_Button['PARCEL']
+        #Dataframe_Button['INSTALLMENT'] = Dataframe_Button['PRICE'] / Dataframe_Button['PARCEL']
 
-        Dataframe_Button['INSTALLMENT_PAYMENT'] = Dataframe_Button['PRICE'] * Dataframe_Button['PARCEL']
+        #Dataframe_Button['INSTALLMENT_PAYMENT'] = Dataframe_Button['PRICE'] * Dataframe_Button['PARCEL']
 
         Dataframe_Button['INTERNACIONAL'] = 'ERRO'
 

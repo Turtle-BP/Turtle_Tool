@@ -66,7 +66,7 @@ def getting_n_creating_magazine_urls(brand,teste_var=None):
     df['Urls'] = df['Brand'] + "+" + df['Name']
 
     # Criando a nova coluna que são as urls de pesquisa
-    df['Urls_search'] = "https://www.magazineluiza.com.br/_next/data/6iiRItNEzh8nyKUs2Ligx/busca/" + \
+    df['Urls_search'] = "https://www.magazineluiza.com.br/_next/data/Lj7A5u-V7UbMA9qQQrrb4/busca/" + \
     df['Brand'][0] + "%2B" + df['Name'] + ".json?slug=busca&slug=" + \
     df['Brand'][0] + "%2B" + df['Name']
 
@@ -100,12 +100,12 @@ def creating_dataframe(urls, sellers, price, installment, parcel, installment_to
     Dataframe['ID'] = sku
     Dataframe['PRODUCT'] = title
 
-    if brand == "GoPro":
-        Dataframe = Dataframe[Dataframe['PRICE'] > 1000]
-    elif brand == 'Motorola':
-        Dataframe = Dataframe[Dataframe['PRICE'] > 100]
-    elif brand == 'Wacom':
-        Dataframe = Dataframe[Dataframe['PRICE'] > 100]
+    #if brand == "GoPro":
+        #Dataframe = Dataframe[Dataframe['PRICE'] > 1000]
+    #elif brand == 'Motorola':
+        #Dataframe = Dataframe[Dataframe['PRICE'] > 100]
+    #elif brand == 'Wacom':
+        #Dataframe = Dataframe[Dataframe['PRICE'] > 100]
 
     #Colocando na ordem correta
     Dataframe = Dataframe[['DATE', 'URL', 'MARKETPLACE', 'SELLER', 'PRICE', 'PARCEL', 'INSTALLMENT', 'INSTALLMENT_PAYMENT', 'ID', 'PRODUCT']]
