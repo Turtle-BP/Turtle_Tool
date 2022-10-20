@@ -353,8 +353,8 @@ def Amazon_Final(brand, teste_var=None):
         Df_final = pd.concat([dataframe_inicial, dataframe_botao])
 
         Df_final = Df_final[Df_final['PRICE'] != 'Erro']
-        Df_final['PRICE']= Df_final['PRICE'].astype('float')
-        Df_final = Df_final[Df_final['PRICE'] > 100.99]
+        #Df_final['PRICE']= Df_final['PRICE'].astype('float')
+        #Df_final = Df_final[Df_final['PRICE'] > 100.99]
 
         Df_final['MORE'] = Df_final['MORE'].fillna(0.0)
         Df_final['MORE'] = Df_final['MORE'].astype('int')
