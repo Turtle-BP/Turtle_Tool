@@ -15,13 +15,13 @@ def Creating_Labels(root):
     Marcas = list(getting_brands())
 
     #Conectando com o banco
-    connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                              user='admin',
                              password='turtle316712',
                              database='Products_Brands',
                              cursorclass=pymysql.cursors.DictCursor)
 
-    connection_historic = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection_historic = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                 user='admin',
                 password='turtle316712',
                 database='Historic_Brands',
@@ -111,7 +111,7 @@ def Add_brand():
 #FUNÇÃO DE UPLOAD DE NOVA MARCA NOS BANCOS DE DADOS COM COMMIT
 def Upload_Brand(brand_name, lista):
     #Conectando com o banco
-    connection_brands = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection_brands = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                              user='admin',
                              password='turtle316712',
                              database='turtle',
@@ -128,7 +128,7 @@ def Upload_Brand(brand_name, lista):
     c_brands.close()
 
     #Conectando com o banco
-    connection_products = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection_products = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                              user='admin',
                              password='turtle316712',
                              database='Products_Brands',

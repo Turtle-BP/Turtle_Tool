@@ -227,7 +227,7 @@ def Logs_records(table):
     global list
 
     #Conectando com o banco
-    connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                              user='admin',
                              password='turtle316712',
                              database='turtle',

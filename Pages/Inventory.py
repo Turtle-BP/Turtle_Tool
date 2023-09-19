@@ -14,7 +14,7 @@ def Inventory_Page():
     Page.title("Turtle Brand Protection - V.1")
     Page.geometry('200x100')
 
-    connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                              user='admin',
                              password='turtle316712',
                              database='turtle',

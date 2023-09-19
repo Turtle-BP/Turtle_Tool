@@ -76,7 +76,7 @@ def Log_registration(dataset, brand):
 def Upload_to_aws(data, brand):
     Log_registration(data, brand)
 
-    connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                              user='admin',
                              password='turtle316712',
                              database='Historic_Brands',
