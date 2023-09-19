@@ -4,10 +4,8 @@ from tkinter import ttk
 from tkinter.messagebox import NO
 
 import pandas as pd
-from PIL import ImageTk, Image
 
 import pymysql
-from pyparsing import col
 from Global_Scripts.Menu_Brands import getting_brands
 
 #Função para adicionar os dados na TABELA DE VISÃO DE PRODUTOS
