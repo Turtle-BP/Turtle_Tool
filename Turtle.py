@@ -14,7 +14,7 @@ from Pages.App_Details import details
 def User_verification(username, password, root):
     
     # Criando a conexão com o banco de sql
-    connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                                  user='admin',
                                  password='turtle316712',
                                  database='turtle',
