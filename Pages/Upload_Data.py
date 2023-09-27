@@ -32,9 +32,14 @@ def Inspec_data(brand_name):
     #Filtrando os dados
     data_filtrada = data[data['Brand'] == brand_name]
 
-    #Pegando apenas as colunas que irei utilizar para a construlão dos dados
-    data_filtrada = data_filtrada[['Store - Seller','Week','Date','Part','Store','Seller','Suggested Price','Cash Price','Difference','Porcentage','Installments','Parcel Price','Installment Price','Hiperlink','Item','Store Status','Store Group','From_To - Sellers','1P X 3P','Seller Official?','Cash Price Status','Installment Price Status','Action','Status Ad','Brand','Ad',"Ad's Code",'Item Classification','Cross Border']]
+    if brand_name == 'Elsys':
+        #Pegando apenas as colunas que irei utilizar para a construlão dos dados
+        data_filtrada = data_filtrada[['Store - Seller','Week','Date','Part','Store','Seller','Suggested Price','Cash Price','Difference','Porcentage','Installments','Parcel Price','Installment Price','Hiperlink','Item','Store Status','Store Group','From_To - Sellers','1P X 3P','Seller Official?','Cash Price Status','Installment Price Status','Action','Status Ad','Brand','Ad',"Ad's Code",'Item Classification','Cross Border', 'Buy Box Index', 'Official Store','Official Store Names','Responsável']]
+    else:
+        data_filtrada = data_filtrada[['Store - Seller','Week','Date','Part','Store','Seller','Suggested Price','Cash Price','Difference','Porcentage','Installments','Parcel Price','Installment Price','Hiperlink','Item','Store Status','Store Group','From_To - Sellers','1P X 3P','Seller Official?','Cash Price Status','Installment Price Status','Action','Status Ad','Brand','Ad',"Ad's Code",'Item Classification','Cross Border']]
 
+
+    #
     #Mudando as colunas de Action para corrigir sozinha
     data_filtrada['Action'] = data_filtrada['Action'].str.replace(r'(^.*In Progress.*$)', 'Mercado Livre - Take Down')
     data_filtrada['Action'] = data_filtrada['Action'].str.replace('Send Extrajudicial', 'Extrajudicial Sent')
@@ -93,13 +98,15 @@ def Upload_to_aws(data, brand):
                                         INSTALLMENT_PRICE, HIPERLINK, ITEM, STORE_STATUS, 
                                         STORE_GROUP, FROM_TO_SELLERS, PXP, SELLER_OFICIAL, 
                                         CASH_PRICE_STATUS, INSTALLMENT_PRICE_STATUS, ACTION, 
-                                        STATUS_AD, BRAND, AD_CODE, ITEM_CLASSIFICATION, CROSS_BORDER) VALUES (%s, %s, %s, %s, 
+                                        STATUS_AD, BRAND, AD_CODE, ITEM_CLASSIFICATION, CROSS_BORDER, BUY_BOX_INDEX, OFFICIAL_STORE, OFFICIAL_STORE_NAME,RESPONSAVEL) VALUES (%s, %s, %s, %s, 
                                                                                                               %s, %s, %s, %s, 
                                                                                                               %s, %s, %s, %s, 
                                                                                                               %s, %s, %s, %s, 
                                                                                                               %s, %s, %s, %s,
                                                                                                               %s, %s, %s, %s, 
-                                                                                                              %s, %s, %s, %s, %s)"""
+                                                                                                              %s, %s, %s, %s, 
+                                                                                                              %s, %s, %s, %s,
+                                                                                                              %s)"""
 
         full_script = table_script + SQL_Script
 
@@ -109,7 +116,10 @@ def Upload_to_aws(data, brand):
                                row['Installments'],row['Parcel Price'],row['Installment Price'],row['Hiperlink'],row['Item'],
                                row['Store Status'],row['Store Group'],row['From_To - Sellers'],row['1P X 3P'],row['Seller Official?'],
                                row['Cash Price Status'],row['Installment Price Status'],row['Action'],row['Status Ad'],row['Brand'],row["Ad's Code"],
-                               row['Item Classification'],row['Cross Border']))
+                               row['Item Classification'],row['Cross Border'],row['Buy Box Index'],row['Official Store'],row['Official Store Names'],row['Responsável']))
+
+
+    
 
     connection.commit()
     connection.close()
