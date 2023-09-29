@@ -91,32 +91,62 @@ def Upload_to_aws(data, brand):
 
     table_script = 'INSERT INTO %s ' % (brand)
 
-    for i, row in data.iterrows():
-        SQL_Script = """(STORE_SELLER, WEEK, DATE, PART, 
-                                        PRODUCT, STORE, SELLER, SUGGESTED_PRICE, CASH_PRICE, 
-                                        DIFFERENCE, PORCENTAGE, INSTALLMENTS, PARCEL_PRICE, 
-                                        INSTALLMENT_PRICE, HIPERLINK, ITEM, STORE_STATUS, 
-                                        STORE_GROUP, FROM_TO_SELLERS, PXP, SELLER_OFICIAL, 
-                                        CASH_PRICE_STATUS, INSTALLMENT_PRICE_STATUS, ACTION, 
-                                        STATUS_AD, BRAND, AD_CODE, ITEM_CLASSIFICATION, CROSS_BORDER, BUY_BOX_INDEX, OFFICIAL_STORE, OFFICIAL_STORE_NAME,RESPONSAVEL) VALUES (%s, %s, %s, %s, 
-                                                                                                              %s, %s, %s, %s, 
-                                                                                                              %s, %s, %s, %s, 
-                                                                                                              %s, %s, %s, %s, 
-                                                                                                              %s, %s, %s, %s,
-                                                                                                              %s, %s, %s, %s, 
-                                                                                                              %s, %s, %s, %s, 
-                                                                                                              %s, %s, %s, %s,
-                                                                                                              %s)"""
+    if brand == 'Elsys':
 
-        full_script = table_script + SQL_Script
+        for i, row in data.iterrows():
+            SQL_Script = """(STORE_SELLER, WEEK, DATE, PART, 
+                                            PRODUCT, STORE, SELLER, SUGGESTED_PRICE, CASH_PRICE, 
+                                            DIFFERENCE, PORCENTAGE, INSTALLMENTS, PARCEL_PRICE, 
+                                            INSTALLMENT_PRICE, HIPERLINK, ITEM, STORE_STATUS, 
+                                            STORE_GROUP, FROM_TO_SELLERS, PXP, SELLER_OFICIAL, 
+                                            CASH_PRICE_STATUS, INSTALLMENT_PRICE_STATUS, ACTION, 
+                                            STATUS_AD, BRAND, AD_CODE, ITEM_CLASSIFICATION, CROSS_BORDER, BUY_BOX_INDEX, OFFICIAL_STORE, OFFICIAL_STORE_NAME,RESPONSAVEL) VALUES (%s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s,
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s,
+                                                                                                                %s)"""
 
-        c.execute(full_script, (row['Store - Seller'],row['Week'],
-                               row['Date'],row['Part'],row['Item'],row['Store'],
-                               row['Seller'],row['Suggested Price'],row['Cash Price'],row['Difference'],row['Porcentage'],
-                               row['Installments'],row['Parcel Price'],row['Installment Price'],row['Hiperlink'],row['Item'],
-                               row['Store Status'],row['Store Group'],row['From_To - Sellers'],row['1P X 3P'],row['Seller Official?'],
-                               row['Cash Price Status'],row['Installment Price Status'],row['Action'],row['Status Ad'],row['Brand'],row["Ad's Code"],
-                               row['Item Classification'],row['Cross Border'],row['Buy Box Index'],row['Official Store'],row['Official Store Names'],row['Responsável']))
+            full_script = table_script + SQL_Script
+
+            c.execute(full_script, (row['Store - Seller'],row['Week'],
+                                row['Date'],row['Part'],row['Item'],row['Store'],
+                                row['Seller'],row['Suggested Price'],row['Cash Price'],row['Difference'],row['Porcentage'],
+                                row['Installments'],row['Parcel Price'],row['Installment Price'],row['Hiperlink'],row['Item'],
+                                row['Store Status'],row['Store Group'],row['From_To - Sellers'],row['1P X 3P'],row['Seller Official?'],
+                                row['Cash Price Status'],row['Installment Price Status'],row['Action'],row['Status Ad'],row['Brand'],row["Ad's Code"],
+                                row['Item Classification'],row['Cross Border'],row['Buy Box Index'],row['Official Store'],row['Official Store Names'],row['Responsável']))
+            
+    else:
+        for i, row in data.iterrows():
+            SQL_Script = """(STORE_SELLER, WEEK, DATE, PART, 
+                                            PRODUCT, STORE, SELLER, SUGGESTED_PRICE, CASH_PRICE, 
+                                            DIFFERENCE, PORCENTAGE, INSTALLMENTS, PARCEL_PRICE, 
+                                            INSTALLMENT_PRICE, HIPERLINK, ITEM, STORE_STATUS, 
+                                            STORE_GROUP, FROM_TO_SELLERS, PXP, SELLER_OFICIAL, 
+                                            CASH_PRICE_STATUS, INSTALLMENT_PRICE_STATUS, ACTION, 
+                                            STATUS_AD, BRAND, AD_CODE, ITEM_CLASSIFICATION, CROSS_BORDER) VALUES (%s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s,
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s, %s, %s, %s, 
+                                                                                                                %s)"""
+
+            full_script = table_script + SQL_Script
+
+            c.execute(full_script, (row['Store - Seller'],row['Week'],
+                                row['Date'],row['Part'],row['Item'],row['Store'],
+                                row['Seller'],row['Suggested Price'],row['Cash Price'],row['Difference'],row['Porcentage'],
+                                row['Installments'],row['Parcel Price'],row['Installment Price'],row['Hiperlink'],row['Item'],
+                                row['Store Status'],row['Store Group'],row['From_To - Sellers'],row['1P X 3P'],row['Seller Official?'],
+                                row['Cash Price Status'],row['Installment Price Status'],row['Action'],row['Status Ad'],row['Brand'],row["Ad's Code"],
+                                row['Item Classification'],row['Cross Border']))
+
 
 
     
