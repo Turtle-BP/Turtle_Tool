@@ -44,7 +44,7 @@ def Estoque_Mail():
 #Função Logs 
 def Log(script,marketplace,brand,status):
     # Criando a conexão com o banco de sql
-    connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                                  user='admin',
                                  password='turtle316712',
                                  database='turtle',
@@ -74,7 +74,7 @@ def Estoque():
     Log("Estoque","ML","GOPRO","INICIOU")
 
     # Criando a conexão com o banco de sql
-    connection = pymysql.connect(host='mysqlserver.cnzboqhfvndh.sa-east-1.rds.amazonaws.com',
+    connection = pymysql.connect(host='historic-brands.csheuezawnml.sa-east-1.rds.amazonaws.com',
                                  user='admin',
                                  password='turtle316712',
                                  database='turtle',
